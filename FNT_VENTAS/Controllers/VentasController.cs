@@ -18,7 +18,7 @@ namespace FNT_VENTAS.Controllers
 
         public VentasController()//IVentasBusinessLogic oIIVentasBusinessLogic)
         {
-            //this.oIVentasBusinessLogic = oIIVentasBusinessLogic;
+            ////this.oIVentasBusinessLogic = oIIVentasBusinessLogic;
             this.oIVentasBusinessLogic = new VentasBusinessLogic(new FNT_DataModel.DBSisVentasEntities());
         }
 
