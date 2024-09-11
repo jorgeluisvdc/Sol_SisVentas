@@ -153,7 +153,6 @@ namespace FNT_VENTAS.Controllers
             }
             oView.ListaDTOStock = oDTORespuesta.ListaDTOStock;
 
-            //oLista = oDTORespuesta.ListaDTOVenta;
             Session["STOCK_PRODUCTOS"] = oView.ListaDTOStock;
             List<DTODetalleComprobante> oListaDetComp = new List<DTODetalleComprobante>();
             Session["DETALLE_COMPROBANTE"] = oListaDetComp;
