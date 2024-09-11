@@ -1,0 +1,1224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBSisVentasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersona" Type="int" />
+          <Property Name="estado" Type="int" />
+          <Property Name="clienteObservacion" Type="varchar" MaxLength="50" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="comprobantePago">
+          <Key>
+            <PropertyRef Name="idComprobante" />
+          </Key>
+          <Property Name="idComprobante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nroComprobante" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idTipoComprobante" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="igv" Type="float" />
+          <Property Name="total" Type="float" />
+          <Property Name="idTipoPago" Type="int" Nullable="false" />
+          <Property Name="descuento" Type="float" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+          <Property Name="guid_comprobante" Type="varchar" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="detalleComprobante">
+          <Key>
+            <PropertyRef Name="idDetalleComprobante" />
+            <PropertyRef Name="idComprobante" />
+          </Key>
+          <Property Name="idDetalleComprobante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idComprobante" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="subTotal" Type="float" />
+          <Property Name="descuento" Type="float" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+          <Property Name="guid_comprobante" Type="varchar" MaxLength="36" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+          </Key>
+          <Property Name="idEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPersona" Type="int" />
+          <Property Name="estado" Type="int" />
+          <Property Name="empleadoObservacion" Type="varchar" MaxLength="50" />
+          <Property Name="idTipoEmpleado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="inventario">
+          <Key>
+            <PropertyRef Name="idInventario" />
+          </Key>
+          <Property Name="idInventario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" />
+          <Property Name="cantidadInventario" Type="int" />
+          <Property Name="fechaInventario" Type="datetime" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="persona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="apePaterno" Type="varchar" MaxLength="50" />
+          <Property Name="apeMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="idTipoDocumento" Type="int" Nullable="false" />
+          <Property Name="nroDocumento" Type="varchar" MaxLength="8" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productoDescripcion" Type="varchar" MaxLength="50" />
+          <Property Name="precioUnitario" Type="float" />
+          <Property Name="idCategoria" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="stock">
+          <Key>
+            <PropertyRef Name="idStock" />
+          </Key>
+          <Property Name="idStock" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="stockActual" Type="int" />
+          <Property Name="stockMinimo" Type="int" />
+          <Property Name="stockMaximo" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tipoComprobante">
+          <Key>
+            <PropertyRef Name="idTipoComprobante" />
+          </Key>
+          <Property Name="idTipoComprobante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcionTipoComprobante" Type="nchar" MaxLength="10" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tipoDocumento">
+          <Key>
+            <PropertyRef Name="idTipoDocumento" />
+          </Key>
+          <Property Name="idTipoDocumento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoDocumentoDescripcion" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tipoEmpleado">
+          <Key>
+            <PropertyRef Name="idTipoEmpleado" />
+          </Key>
+          <Property Name="idTipoEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoEmpleadoDescripcion" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tipoPago">
+          <Key>
+            <PropertyRef Name="idTipoPago" />
+          </Key>
+          <Property Name="idTipoPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" />
+          <Property Name="nombreUsuario" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCliente" Type="int" />
+          <Property Name="idEmpleado" Type="int" />
+          <Property Name="idComprobante" Type="int" />
+          <Property Name="observacion" Type="varchar" MaxLength="50" />
+          <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_modificacion" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_cliente_persona">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comprobantePago_tipoComprobante">
+          <End Role="tipoComprobante" Type="Self.tipoComprobante" Multiplicity="0..1" />
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoComprobante">
+              <PropertyRef Name="idTipoComprobante" />
+            </Principal>
+            <Dependent Role="comprobantePago">
+              <PropertyRef Name="idTipoComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comprobantePago_tipoPago">
+          <End Role="tipoPago" Type="Self.tipoPago" Multiplicity="1" />
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoPago">
+              <PropertyRef Name="idTipoPago" />
+            </Principal>
+            <Dependent Role="comprobantePago">
+              <PropertyRef Name="idTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleComprobante_comprobantePago">
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="1" />
+          <End Role="detalleComprobante" Type="Self.detalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantePago">
+              <PropertyRef Name="idComprobante" />
+            </Principal>
+            <Dependent Role="detalleComprobante">
+              <PropertyRef Name="idComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleComprobante_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="detalleComprobante" Type="Self.detalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="detalleComprobante">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_empleado_persona">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_empleado_tipoEmpleado">
+          <End Role="tipoEmpleado" Type="Self.tipoEmpleado" Multiplicity="0..1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoEmpleado">
+              <PropertyRef Name="idTipoEmpleado" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="idTipoEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventario_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
+          <End Role="inventario" Type="Self.inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="inventario">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persona_tipoDocumento">
+          <End Role="tipoDocumento" Type="Self.tipoDocumento" Multiplicity="1" />
+          <End Role="persona" Type="Self.persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoDocumento">
+              <PropertyRef Name="idTipoDocumento" />
+            </Principal>
+            <Dependent Role="persona">
+              <PropertyRef Name="idTipoDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_producto_categoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="stock">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_empleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_venta_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_venta_comprobantePago">
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantePago">
+              <PropertyRef Name="idComprobante" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_venta_empleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBSisVentasModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comprobantePago" EntityType="Self.comprobantePago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalleComprobante" EntityType="Self.detalleComprobante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventario" EntityType="Self.inventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="persona" EntityType="Self.persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoComprobante" EntityType="Self.tipoComprobante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoDocumento" EntityType="Self.tipoDocumento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoEmpleado" EntityType="Self.tipoEmpleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoPago" EntityType="Self.tipoPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="venta" EntityType="Self.venta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_cliente_persona" Association="Self.FK_cliente_persona">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comprobantePago_tipoComprobante" Association="Self.FK_comprobantePago_tipoComprobante">
+            <End Role="tipoComprobante" EntitySet="tipoComprobante" />
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comprobantePago_tipoPago" Association="Self.FK_comprobantePago_tipoPago">
+            <End Role="tipoPago" EntitySet="tipoPago" />
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleComprobante_comprobantePago" Association="Self.FK_detalleComprobante_comprobantePago">
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleComprobante_producto" Association="Self.FK_detalleComprobante_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_empleado_persona" Association="Self.FK_empleado_persona">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_empleado_tipoEmpleado" Association="Self.FK_empleado_tipoEmpleado">
+            <End Role="tipoEmpleado" EntitySet="tipoEmpleado" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventario_producto" Association="Self.FK_inventario_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="inventario" EntitySet="inventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persona_tipoDocumento" Association="Self.FK_persona_tipoDocumento">
+            <End Role="tipoDocumento" EntitySet="tipoDocumento" />
+            <End Role="persona" EntitySet="persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_producto_categoria" Association="Self.FK_producto_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_producto" Association="Self.FK_stock_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_empleado" Association="Self.FK_usuario_empleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_venta_cliente" Association="Self.FK_venta_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_venta_comprobantePago" Association="Self.FK_venta_comprobantePago">
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_venta_empleado" Association="Self.FK_venta_empleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBSisVentasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="producto" Relationship="Self.FK_producto_categoria" FromRole="categoria" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersona" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="clienteObservacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="persona" Relationship="Self.FK_cliente_persona" FromRole="cliente" ToRole="persona" />
+          <NavigationProperty Name="venta" Relationship="Self.FK_venta_cliente" FromRole="cliente" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="comprobantePago">
+          <Key>
+            <PropertyRef Name="idComprobante" />
+          </Key>
+          <Property Name="idComprobante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nroComprobante" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idTipoComprobante" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="igv" Type="Double" />
+          <Property Name="total" Type="Double" />
+          <Property Name="idTipoPago" Type="Int32" Nullable="false" />
+          <Property Name="descuento" Type="Double" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <Property Name="guid_comprobante" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tipoComprobante" Relationship="Self.FK_comprobantePago_tipoComprobante" FromRole="comprobantePago" ToRole="tipoComprobante" />
+          <NavigationProperty Name="tipoPago" Relationship="Self.FK_comprobantePago_tipoPago" FromRole="comprobantePago" ToRole="tipoPago" />
+          <NavigationProperty Name="detalleComprobante" Relationship="Self.FK_detalleComprobante_comprobantePago" FromRole="comprobantePago" ToRole="detalleComprobante" />
+          <NavigationProperty Name="venta" Relationship="Self.FK_venta_comprobantePago" FromRole="comprobantePago" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="detalleComprobante">
+          <Key>
+            <PropertyRef Name="idDetalleComprobante" />
+            <PropertyRef Name="idComprobante" />
+          </Key>
+          <Property Name="idDetalleComprobante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idComprobante" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="subTotal" Type="Double" />
+          <Property Name="descuento" Type="Double" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <Property Name="guid_comprobante" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="comprobantePago" Relationship="Self.FK_detalleComprobante_comprobantePago" FromRole="detalleComprobante" ToRole="comprobantePago" />
+          <NavigationProperty Name="producto" Relationship="Self.FK_detalleComprobante_producto" FromRole="detalleComprobante" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+          </Key>
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPersona" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="empleadoObservacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoEmpleado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="persona" Relationship="Self.FK_empleado_persona" FromRole="empleado" ToRole="persona" />
+          <NavigationProperty Name="tipoEmpleado" Relationship="Self.FK_empleado_tipoEmpleado" FromRole="empleado" ToRole="tipoEmpleado" />
+          <NavigationProperty Name="usuario" Relationship="Self.FK_usuario_empleado" FromRole="empleado" ToRole="usuario" />
+          <NavigationProperty Name="venta" Relationship="Self.FK_venta_empleado" FromRole="empleado" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="inventario">
+          <Key>
+            <PropertyRef Name="idInventario" />
+          </Key>
+          <Property Name="idInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="cantidadInventario" Type="Int32" />
+          <Property Name="fechaInventario" Type="DateTime" Precision="3" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="producto" Relationship="Self.FK_inventario_producto" FromRole="inventario" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="persona">
+          <Key>
+            <PropertyRef Name="idPersona" />
+          </Key>
+          <Property Name="idPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apePaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apeMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
+          <Property Name="nroDocumento" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK_cliente_persona" FromRole="persona" ToRole="cliente" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK_empleado_persona" FromRole="persona" ToRole="empleado" />
+          <NavigationProperty Name="tipoDocumento" Relationship="Self.FK_persona_tipoDocumento" FromRole="persona" ToRole="tipoDocumento" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productoDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="precioUnitario" Type="Double" />
+          <Property Name="idCategoria" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="categoria" Relationship="Self.FK_producto_categoria" FromRole="producto" ToRole="categoria" />
+          <NavigationProperty Name="detalleComprobante" Relationship="Self.FK_detalleComprobante_producto" FromRole="producto" ToRole="detalleComprobante" />
+          <NavigationProperty Name="inventario" Relationship="Self.FK_inventario_producto" FromRole="producto" ToRole="inventario" />
+          <NavigationProperty Name="stock" Relationship="Self.FK_stock_producto" FromRole="producto" ToRole="stock" />
+        </EntityType>
+        <EntityType Name="stock">
+          <Key>
+            <PropertyRef Name="idStock" />
+          </Key>
+          <Property Name="idStock" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="stockActual" Type="Int32" />
+          <Property Name="stockMinimo" Type="Int32" />
+          <Property Name="stockMaximo" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="producto" Relationship="Self.FK_stock_producto" FromRole="stock" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="tipoComprobante">
+          <Key>
+            <PropertyRef Name="idTipoComprobante" />
+          </Key>
+          <Property Name="idTipoComprobante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcionTipoComprobante" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="comprobantePago" Relationship="Self.FK_comprobantePago_tipoComprobante" FromRole="tipoComprobante" ToRole="comprobantePago" />
+        </EntityType>
+        <EntityType Name="tipoDocumento">
+          <Key>
+            <PropertyRef Name="idTipoDocumento" />
+          </Key>
+          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoDocumentoDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="persona" Relationship="Self.FK_persona_tipoDocumento" FromRole="tipoDocumento" ToRole="persona" />
+        </EntityType>
+        <EntityType Name="tipoEmpleado">
+          <Key>
+            <PropertyRef Name="idTipoEmpleado" />
+          </Key>
+          <Property Name="idTipoEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoEmpleadoDescripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK_empleado_tipoEmpleado" FromRole="tipoEmpleado" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="tipoPago">
+          <Key>
+            <PropertyRef Name="idTipoPago" />
+          </Key>
+          <Property Name="idTipoPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="comprobantePago" Relationship="Self.FK_comprobantePago_tipoPago" FromRole="tipoPago" ToRole="comprobantePago" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpleado" Type="Int32" />
+          <Property Name="nombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK_usuario_empleado" FromRole="usuario" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="Int32" />
+          <Property Name="idEmpleado" Type="Int32" />
+          <Property Name="idComprobante" Type="Int32" />
+          <Property Name="observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK_venta_cliente" FromRole="venta" ToRole="cliente" />
+          <NavigationProperty Name="comprobantePago" Relationship="Self.FK_venta_comprobantePago" FromRole="venta" ToRole="comprobantePago" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK_venta_empleado" FromRole="venta" ToRole="empleado" />
+        </EntityType>
+        <Association Name="FK_producto_categoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cliente_persona">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_venta_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comprobantePago_tipoComprobante">
+          <End Role="tipoComprobante" Type="Self.tipoComprobante" Multiplicity="0..1" />
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoComprobante">
+              <PropertyRef Name="idTipoComprobante" />
+            </Principal>
+            <Dependent Role="comprobantePago">
+              <PropertyRef Name="idTipoComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comprobantePago_tipoPago">
+          <End Role="tipoPago" Type="Self.tipoPago" Multiplicity="1" />
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoPago">
+              <PropertyRef Name="idTipoPago" />
+            </Principal>
+            <Dependent Role="comprobantePago">
+              <PropertyRef Name="idTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleComprobante_comprobantePago">
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="1" />
+          <End Role="detalleComprobante" Type="Self.detalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantePago">
+              <PropertyRef Name="idComprobante" />
+            </Principal>
+            <Dependent Role="detalleComprobante">
+              <PropertyRef Name="idComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_venta_comprobantePago">
+          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantePago">
+              <PropertyRef Name="idComprobante" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleComprobante_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="detalleComprobante" Type="Self.detalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="detalleComprobante">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_empleado_persona">
+          <End Role="persona" Type="Self.persona" Multiplicity="0..1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="persona">
+              <PropertyRef Name="idPersona" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="idPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_empleado_tipoEmpleado">
+          <End Role="tipoEmpleado" Type="Self.tipoEmpleado" Multiplicity="0..1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoEmpleado">
+              <PropertyRef Name="idTipoEmpleado" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="idTipoEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuario_empleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="usuario">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_venta_empleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idEmpleado" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventario_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="0..1" />
+          <End Role="inventario" Type="Self.inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="inventario">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_persona_tipoDocumento">
+          <End Role="tipoDocumento" Type="Self.tipoDocumento" Multiplicity="1" />
+          <End Role="persona" Type="Self.persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoDocumento">
+              <PropertyRef Name="idTipoDocumento" />
+            </Principal>
+            <Dependent Role="persona">
+              <PropertyRef Name="idTipoDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_producto">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="stock" Type="Self.stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="stock">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBSisVentasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" />
+          <EntitySet Name="comprobantePago" EntityType="Self.comprobantePago" />
+          <EntitySet Name="detalleComprobante" EntityType="Self.detalleComprobante" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <EntitySet Name="inventario" EntityType="Self.inventario" />
+          <EntitySet Name="persona" EntityType="Self.persona" />
+          <EntitySet Name="producto" EntityType="Self.producto" />
+          <EntitySet Name="stock" EntityType="Self.stock" />
+          <EntitySet Name="tipoComprobante" EntityType="Self.tipoComprobante" />
+          <EntitySet Name="tipoDocumento" EntityType="Self.tipoDocumento" />
+          <EntitySet Name="tipoEmpleado" EntityType="Self.tipoEmpleado" />
+          <EntitySet Name="tipoPago" EntityType="Self.tipoPago" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" />
+          <EntitySet Name="venta" EntityType="Self.venta" />
+          <AssociationSet Name="FK_producto_categoria" Association="Self.FK_producto_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cliente_persona" Association="Self.FK_cliente_persona">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_venta_cliente" Association="Self.FK_venta_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comprobantePago_tipoComprobante" Association="Self.FK_comprobantePago_tipoComprobante">
+            <End Role="tipoComprobante" EntitySet="tipoComprobante" />
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comprobantePago_tipoPago" Association="Self.FK_comprobantePago_tipoPago">
+            <End Role="tipoPago" EntitySet="tipoPago" />
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleComprobante_comprobantePago" Association="Self.FK_detalleComprobante_comprobantePago">
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_venta_comprobantePago" Association="Self.FK_venta_comprobantePago">
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleComprobante_producto" Association="Self.FK_detalleComprobante_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_empleado_persona" Association="Self.FK_empleado_persona">
+            <End Role="persona" EntitySet="persona" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_empleado_tipoEmpleado" Association="Self.FK_empleado_tipoEmpleado">
+            <End Role="tipoEmpleado" EntitySet="tipoEmpleado" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuario_empleado" Association="Self.FK_usuario_empleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="usuario" EntitySet="usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_venta_empleado" Association="Self.FK_venta_empleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventario_producto" Association="Self.FK_inventario_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="inventario" EntitySet="inventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_persona_tipoDocumento" Association="Self.FK_persona_tipoDocumento">
+            <End Role="tipoDocumento" EntitySet="tipoDocumento" />
+            <End Role="persona" EntitySet="persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_producto" Association="Self.FK_stock_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="stock" EntitySet="stock" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBSisVentasModelStoreContainer" CdmEntityContainer="DBSisVentasEntities">
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="DBSisVentasModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cliente">
+            <EntityTypeMapping TypeName="DBSisVentasModel.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="clienteObservacion" ColumnName="clienteObservacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comprobantePago">
+            <EntityTypeMapping TypeName="DBSisVentasModel.comprobantePago">
+              <MappingFragment StoreEntitySet="comprobantePago">
+                <ScalarProperty Name="idComprobante" ColumnName="idComprobante" />
+                <ScalarProperty Name="nroComprobante" ColumnName="nroComprobante" />
+                <ScalarProperty Name="idTipoComprobante" ColumnName="idTipoComprobante" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="igv" ColumnName="igv" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="idTipoPago" ColumnName="idTipoPago" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="guid_comprobante" ColumnName="guid_comprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalleComprobante">
+            <EntityTypeMapping TypeName="DBSisVentasModel.detalleComprobante">
+              <MappingFragment StoreEntitySet="detalleComprobante">
+                <ScalarProperty Name="idDetalleComprobante" ColumnName="idDetalleComprobante" />
+                <ScalarProperty Name="idComprobante" ColumnName="idComprobante" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="subTotal" ColumnName="subTotal" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="guid_comprobante" ColumnName="guid_comprobante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="DBSisVentasModel.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="empleadoObservacion" ColumnName="empleadoObservacion" />
+                <ScalarProperty Name="idTipoEmpleado" ColumnName="idTipoEmpleado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventario">
+            <EntityTypeMapping TypeName="DBSisVentasModel.inventario">
+              <MappingFragment StoreEntitySet="inventario">
+                <ScalarProperty Name="idInventario" ColumnName="idInventario" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="cantidadInventario" ColumnName="cantidadInventario" />
+                <ScalarProperty Name="fechaInventario" ColumnName="fechaInventario" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="persona">
+            <EntityTypeMapping TypeName="DBSisVentasModel.persona">
+              <MappingFragment StoreEntitySet="persona">
+                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apePaterno" ColumnName="apePaterno" />
+                <ScalarProperty Name="apeMaterno" ColumnName="apeMaterno" />
+                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
+                <ScalarProperty Name="nroDocumento" ColumnName="nroDocumento" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="DBSisVentasModel.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="productoDescripcion" ColumnName="productoDescripcion" />
+                <ScalarProperty Name="precioUnitario" ColumnName="precioUnitario" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stock">
+            <EntityTypeMapping TypeName="DBSisVentasModel.stock">
+              <MappingFragment StoreEntitySet="stock">
+                <ScalarProperty Name="idStock" ColumnName="idStock" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="stockActual" ColumnName="stockActual" />
+                <ScalarProperty Name="stockMinimo" ColumnName="stockMinimo" />
+                <ScalarProperty Name="stockMaximo" ColumnName="stockMaximo" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoComprobante">
+            <EntityTypeMapping TypeName="DBSisVentasModel.tipoComprobante">
+              <MappingFragment StoreEntitySet="tipoComprobante">
+                <ScalarProperty Name="idTipoComprobante" ColumnName="idTipoComprobante" />
+                <ScalarProperty Name="descripcionTipoComprobante" ColumnName="descripcionTipoComprobante" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoDocumento">
+            <EntityTypeMapping TypeName="DBSisVentasModel.tipoDocumento">
+              <MappingFragment StoreEntitySet="tipoDocumento">
+                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
+                <ScalarProperty Name="tipoDocumentoDescripcion" ColumnName="tipoDocumentoDescripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoEmpleado">
+            <EntityTypeMapping TypeName="DBSisVentasModel.tipoEmpleado">
+              <MappingFragment StoreEntitySet="tipoEmpleado">
+                <ScalarProperty Name="idTipoEmpleado" ColumnName="idTipoEmpleado" />
+                <ScalarProperty Name="tipoEmpleadoDescripcion" ColumnName="tipoEmpleadoDescripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipoPago">
+            <EntityTypeMapping TypeName="DBSisVentasModel.tipoPago">
+              <MappingFragment StoreEntitySet="tipoPago">
+                <ScalarProperty Name="idTipoPago" ColumnName="idTipoPago" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="DBSisVentasModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venta">
+            <EntityTypeMapping TypeName="DBSisVentasModel.venta">
+              <MappingFragment StoreEntitySet="venta">
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idComprobante" ColumnName="idComprobante" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

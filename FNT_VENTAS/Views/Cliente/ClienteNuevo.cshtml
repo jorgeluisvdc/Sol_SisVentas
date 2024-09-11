@@ -1,0 +1,109 @@
+﻿@model FNT_BusinessEntities.Interface.DTOVentasRespuesta
+@{
+
+    //var fecha_crea = Model.DTOCliente.FechaCreacion == null ? "" : (((DateTime)Model.DTOCliente.FechaCreacion).ToString("dd/MM/yyyy hh:mm tt"));
+    //var fecha_mod = Model.DTOCliente.FechaModificacion == null ? "" : (((DateTime)Model.DTOCliente.FechaModificacion).ToString("dd/MM/yyyy"));
+
+    List<FNT_BusinessEntities.Interface.DTOVentasConsulta> ListaEstado = new List<FNT_BusinessEntities.Interface.DTOVentasConsulta>();
+    FNT_BusinessEntities.Interface.DTOVentasConsulta oEstado = new FNT_BusinessEntities.Interface.DTOVentasConsulta();
+
+    oEstado.ValorConsulta = "Habilitar";
+    oEstado.Estado = 1;
+    ListaEstado.Add(oEstado);
+
+    oEstado = new FNT_BusinessEntities.Interface.DTOVentasConsulta();
+    oEstado.ValorConsulta = "Deshabilitar";
+    oEstado.Estado = 0;
+    ListaEstado.Add(oEstado);
+}
+<div style="height:8px;"></div>
+<div class="row">
+    <div class="col-md-3 form-label zizou-regular text-primary">Nuevo cliente</div>
+    <div class="col-md-9"><hr /></div>
+</div>
+@*<div style="height:10px;"></div>
+    <div class="row">
+        <div class="col-md-2 form-label zizou-regular">Código:</div>
+        <div class="col-md-3">
+            <input class="form-control text-secondary" id="txtIdCliente" type="text" value="@Model.DTOCliente.IdCliente" disabled>
+            <input id="Id_HdIdPersona" type="hidden" value="@Model.DTOCliente.IdPersona" />
+        </div>
+    </div>*@
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Nombre:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtNombre" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Apellido paterno:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtApePaterno" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Apellido materno:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtApeMaterno" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Tipo Documento:</div>
+    <div class="col-md-5">
+        @Html.DropDownList("IdTipoDocumento", new SelectList((System.Collections.IEnumerable)Model.ListaDTOTipoDocumento.Select(t => new { t.IdTipoDocumento, t.TipoDocumentoDescripcion }), "IdTipoDocumento", "TipoDocumentoDescripcion", Model.ListaDTOTipoDocumento[0].IdTipoDocumento), "::: Seleccione :::", new { @class = "selectpicker control-combo", id = "Seleccionar_ddlTipoDocumento", @data_live_search = "true", @data_size = "7", onChange = "ValidaBtnNuevo_Cliente();" })
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Nro. Documento:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtNroDocumento" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Dirección:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtDireccion" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Teléfono:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtTelefono" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">Observación:</div>
+    <div class="col-md-5">
+        <input class="form-control text-secondary" id="txtClienteObservacion" type="text" value="" onclick="ValidaBtnNuevo_Cliente();">
+    </div>
+</div>
+@*<div style="height:10px;"></div>
+    <div class="row">
+        <div class="col-md-2 form-label zizou-regular">Estado:</div>
+        <div class="col-md-5">
+            @Html.DropDownList("IdEstado", new SelectList((System.Collections.IEnumerable)ListaEstado.Select(o => new { o.Estado, o.ValorConsulta }), "Estado", "ValorConsulta", ListaEstado[0].Estado), "::: Seleccione :::", new { @class = "selectpicker control-combo", id = "Seleccionar_ddlEstado", @data_live_search = "true", @data_size = "7", onChange = "ValidaBtnNuevo_Cliente()" })
+        </div>
+    </div>*@
+<div style="height:10px;"></div>
+<div class="row">
+    <div class="col-md-2 form-label zizou-regular">
+        <input type="button" class="btn btn-primary btn-sm" id="btnCancelarNuevo" value="Cancelar nuevo" onclick="NuevoClienteCancelar();" />
+    </div>
+</div>
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#Seleccionar_ddlEstado").val($("#Seleccionar_ddlEstado option:first").val());
+        $("#Seleccionar_ddlTipoDocumento").val($("#Seleccionar_ddlTipoDocumento option:first").val());
+        $('.selectpicker').selectpicker();
+
+        $('.selectpicker').selectpicker('refresh');
+    });
+</script>

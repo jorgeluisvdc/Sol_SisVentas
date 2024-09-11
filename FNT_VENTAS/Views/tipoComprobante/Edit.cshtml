@@ -1,0 +1,136 @@
+﻿@model FNT_DataModel.tipoComprobante
+
+@{
+    ViewBag.Title = "Edit";
+
+    List<FNT_BusinessEntities.Interface.DTOVentasConsulta> ListaEstado = new List<FNT_BusinessEntities.Interface.DTOVentasConsulta>();
+    FNT_BusinessEntities.Interface.DTOVentasConsulta oEstado = new FNT_BusinessEntities.Interface.DTOVentasConsulta();
+
+    oEstado.ValorConsulta = "HABILITAR";
+    oEstado.Estado = 1;
+    ListaEstado.Add(oEstado);
+
+    oEstado = new FNT_BusinessEntities.Interface.DTOVentasConsulta();
+    oEstado.ValorConsulta = "DESHABILITAR";
+    oEstado.Estado = 0;
+    ListaEstado.Add(oEstado);
+
+}
+ <div style="height:15px;"></div>
+
+<h4>TIPO DE COMPROBANTE > EDITAR</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>tipoDocumento</h4>*@
+         <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idTipoComprobante)
+
+        <div class="row">
+ <label class="control-label col-md-2">Descripción</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.descripcionTipoComprobante, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.descripcionTipoComprobante, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="control-label col-md-2">Estado</label>
+            <div class="col-md-4">
+                @*@Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })*@
+
+                @Html.DropDownList("estado", new SelectList((System.Collections.IEnumerable)ListaEstado.Select(o => new { o.Estado, o.ValorConsulta }), "Estado", "ValorConsulta", ListaEstado[0].Estado), "::: Seleccione :::", new { @class = "selectpicker control-combo", id = "estado", @data_live_search = "true", @data_size = "7", onChange = "" })
+
+                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<h4>Edit</h4>
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>tipoComprobante</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.idTipoComprobante)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.descripcionTipoComprobante, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.descripcionTipoComprobante, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.descripcionTipoComprobante, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.usuario_creacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.usuario_creacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.usuario_creacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.fecha_creacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fecha_creacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fecha_creacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.usuario_modificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.usuario_modificacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.usuario_modificacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.fecha_modificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fecha_modificacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fecha_modificacion, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }*@
+
+        @*<div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>*@
+        <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

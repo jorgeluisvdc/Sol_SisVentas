@@ -1,0 +1,69 @@
+﻿@model IEnumerable<FNT_DataModel.cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.clienteObservacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario_creacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario_modificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_modificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.persona.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.clienteObservacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario_creacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_creacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario_modificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_modificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.persona.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idCliente }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idCliente }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idCliente })
+        </td>
+    </tr>
+}
+
+</table>

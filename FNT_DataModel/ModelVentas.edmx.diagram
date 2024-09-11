@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d9f1ef8e8c24456e90c47eec72c63a53" Name="General" ZoomLevel="70">
+        <EntityTypeShape EntityType="DBSisVentasModel.categoria" Width="1.5" PointX="7.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.cliente" Width="1.5" PointX="7.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.comprobantePago" Width="1.5" PointX="1.375" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.detalleComprobante" Width="1.5" PointX="3.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.empleado" Width="1.5" PointX="7.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.inventario" Width="1.5" PointX="9.875" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.persona" Width="1.5" PointX="10" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.producto" Width="1.5" PointX="5.625" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.stock" Width="1.5" PointX="5.625" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.tipoComprobante" Width="1.5" PointX="1.375" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.tipoDocumento" Width="1.5" PointX="10" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.tipoEmpleado" Width="1.5" PointX="3.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.tipoPago" Width="1.5" PointX="1.375" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.usuario" Width="1.5" PointX="5.625" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSisVentasModel.venta" Width="1.5" PointX="3.5" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="DBSisVentasModel.FK_producto_categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_cliente_persona" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_venta_cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_comprobantePago_tipoComprobante" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_comprobantePago_tipoPago" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_detalleComprobante_comprobantePago" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_venta_comprobantePago" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_detalleComprobante_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_empleado_persona" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_empleado_tipoEmpleado" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_usuario_empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_venta_empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_inventario_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_persona_tipoDocumento" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSisVentasModel.FK_stock_producto" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

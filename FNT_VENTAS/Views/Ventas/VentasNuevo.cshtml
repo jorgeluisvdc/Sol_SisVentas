@@ -1,0 +1,284 @@
+﻿@model FNT_BusinessEntities.Interface.DTOVentasRespuesta
+@{
+    //ViewBag.Title = Constantes.Aplicaciones.TipoPago.Titulo;
+    ViewBag.Title = "Emisión de Comprobante";
+    //ViewBag.SubTitle = "Proceso de registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="height:10px;"></div>
+<div id="contenedor">
+    <div>
+        <div style="height:10px;"></div>
+        <h3 class="sgothic">@ViewBag.Title</h3>
+        <!-- <h4 id="subtitle" class="sgothic text-primary">@ViewBag.SubTitle</h4> -->
+        <hr />
+    </div>
+    <div style="height:20px;"></div>
+    <h5 class="sgothic text-primary">Datos del Comprobante</h5>
+    <hr style="border: 0;opacity: 0.8;height: 5px;background: #007bff;display: block;margin: 1em 0;" />
+    <div id="Div_Registros">
+        <div style="height:10px;"></div>
+        <div class="row">
+            <div class="col-md-2 form-label zizou-regular">Tipo Doc.:</div>
+            <div class="col-md-5">
+
+                @if (Model.ListaDTOTipoComprobante != null)
+                {
+                    if (Model.ListaDTOTipoComprobante.Count > 0)
+                    {
+                        @Html.DropDownList("IdTipoComp", new SelectList((System.Collections.IEnumerable)Model.ListaDTOTipoComprobante.Select(t => new { t.IdTipoComprobante, t.descripcionTipoComprobante }), "IdTipoComprobante", "descripcionTipoComprobante", Model.ListaDTOTipoComprobante[0].IdTipoComprobante), "::: Seleccione :::", new { @class = "selectpicker control-combo", id = "Seleccionar_ddlTipoComprobante", @data_live_search = "true", @data_size = "7", onChange = "" })
+                    }
+                    else
+                    {
+                        <span class="text-danger">No existen tipos de comprobantes.</span>
+                    }
+                }
+                
+            </div>
+            <div class="col-md-2 form-label zizou-regular">Nro. Doc.:</div>
+            <div class="col-md-3">
+                <input class="form-control text-secondary" id="txtDescripcion" type="text" value="F001-002598" onclick="ValidaBtnActualizar_TipoPago();">
+            </div>
+        </div>
+        <div style="height:10px;"></div>
+        <div class="row">
+            <div class="col-md-2 form-label zizou-regular">Cliente:</div>
+            <div class="col-md-5" id="DivCliente">
+                
+                @if (Model.ListaDTOCliente != null)
+                {
+                    if (Model.ListaDTOCliente.Count > 0)
+                    {
+                        @Html.DropDownList("IdCliente", new SelectList((System.Collections.IEnumerable)Model.ListaDTOCliente.Select(c => new { c.IdCliente, Descripcion = c.NroDocumento + " " + c.Nombre + " " + c.ApePaterno + " " + c.ApeMaterno }), "IdCliente", "Descripcion", Model.ListaDTOCliente[0].IdCliente), "::: Seleccione :::", new { @class = "selectpicker control-combo col-md-12 left-select-15", id = "Seleccionar_ddlCliente", @data_live_search = "true", @data_size = "7", onChange = "" })
+                    }
+                    else
+                    {
+                        <span class="text-danger">No existen clientes.</span>
+                    }
+                }
+                
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary sgothic" href="@Url.Action("Index", "Cliente")">Agregar Cliente</a>
+            </div>
+        </div>
+
+        <div style="height:10px;"></div>
+        <div class="row">
+            <div class="col-md-2 form-label zizou-regular">Forma de pago.:</div>
+            <div class="col-md-3">
+
+                @if (Model.ListaDTOTipoPago != null)
+                {
+                    if (Model.ListaDTOTipoPago.Count > 0)
+                    {
+                        @Html.DropDownList("IdTipoPago", new SelectList((System.Collections.IEnumerable)Model.ListaDTOTipoPago.Select(t => new { t.IdTipoPago, t.Descripcion }), "IdTipoPago", "Descripcion", Model.ListaDTOTipoPago[0].IdTipoPago), "::: Seleccione :::", new { @class = "selectpicker control-combo", id = "Seleccionar_ddlTipoPago", @data_live_search = "true", @data_size = "7", onChange = "" })
+                    }
+                    else
+                    {
+                        <span class="text-danger">No existen tipos de pagos.</span>
+                    }
+                }
+                
+            </div>
+        </div>
+        <div style="height:10px;"></div>
+        <div class="row">
+            <div class="col-md-2 form-label zizou-regular">Dirección:</div>
+            <div class="col-md-7">
+                <input class="form-control text-secondary" id="txtDescripcion" type="text" value="JR. TUPAC AMARU NRO. 1125 CERCADO DE PUNO" onclick="">
+            </div>
+            <div class="col-md-3">
+                <button id="btnGrabarVenta" class="col-md-12 btn btn-warning" onclick="GrabarVenta();">
+                    <span style="text-transform: uppercase; font-weight:bold;">Grabar Venta</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div style="height:20px;"></div>
+    <div>
+        <div class="row justify-content-between">
+            <div class="col-md-3">
+                <h5 class="sgothic text-primary">Detalle</h5>
+            </div>
+            <div class="col-md-3">
+                <h5 id="lblTotalComprobante" class="sgothic text-danger" style="text-align: end;">Total S/ 0.00</h5>
+            </div>
+        </div>
+    </div>
+    <hr style="border: 0;opacity: 0.8;height: 5px;background: #007bff;display: block;margin: 1em 0;" />
+    <div id="Div_Registros_OTRO">
+        <div class="row">
+            <div class="col-md-4 form-label zizou-regular">Producto</div>
+            <div class="col-md-2 form-label zizou-regular">Prec.Unitario:</div>
+            <div class="col-md-2 form-label zizou-regular">Cantidad:</div>
+            @*<div class="col-md-2 form-label zizou-regular">IGV:</div>
+                <div class="col-md-2 form-label zizou-regular">Sub Total:</div>*@
+            <div class="col-md-2 form-label zizou-regular">Total:</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-label zizou-regular">
+
+                @if (Model.ListaDTOStock != null)
+                {
+                    if (Model.ListaDTOStock.Count > 0)
+                    {
+                        @Html.DropDownList("IdStockProducto", new SelectList((System.Collections.IEnumerable)Model.ListaDTOStock.Select(s => new { s.IdProducto, Descripcion = s.ProductoDescripcion }), "IdProducto", "Descripcion", Model.ListaDTOStock[0].IdProducto), "::: Seleccione :::", new { @class = "selectpicker control-combo col-md-12 left-select-15", id = "Seleccionar_ddlStockProducto", @data_live_search = "true", @data_size = "7", onChange = "StockPrecioUnitario();" })
+                    }
+                    else
+                    {
+                        <span class="text-danger">No existen productos en stock.</span>
+                    }
+                }
+
+            </div>
+            <div class="col-md-2 form-label zizou-regular">
+                <input id="txtPrecioUnitario" class="form-control text-secondary" type="text" value="" placeholder="0.00">
+            </div>
+            <div class="col-md-2 form-label zizou-regular">
+                <input id="txtCantidad" class="form-control text-secondary" type="number" value="" placeholder="0">
+            </div>
+            <div class="col-md-2 form-label zizou-regular">
+                <input id="txtTotal" class="form-control text-secondary" type="text" value="" placeholder="0.00">
+            </div>
+            <div class="col-md-2 form-label zizou-regular">
+                <!-- <a class="col-md-12 btn btn-success sgothic" href="@Url.Action("Index", "Cliente")">Agregar</a> -->
+                <button id="btnAgregarProducto" class="col-md-12 btn btn-success sgothic" onclick="AgregarProducto();">
+                    <i class="fa fa-plus-circle"></i> Agregar
+                </button>
+            </div>
+        </div>
+        <div style="height:10px;"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <hr class="col-md-11" style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+            </div>
+        </div>
+        <div class="row" style="font-size:11px;">
+            <div class="col-md-12">
+                <table id="TablaDetalle" class="table table-striped table-bordered" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>PRODUCTO</th>
+                            <th>PRECIO UNIT.</th>
+                            <th>CANTIDAD</th>
+                            <th>IGV</th>
+                            <th>SUB TOTAL</th>
+                            <th>TOTAL</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    @*<tbody>
+                                <tr>
+                                    <td>IMPRESION TAZA 11 OZ.</td>
+                                    <td>12.03</td>
+                                    <td>3.00</td>
+                                    <td>1.18</td>
+                                    <td>6.25</td>
+                                    <td>8.56</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger delete">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                        </tbody>*@
+                </table>
+            </div>
+        </div>
+    </div>
+    <div style="height:15px;"></div>
+    <div>
+        <div class="row">
+            <div class="col align-self-end">
+                <h5 id="lblTotalComprobantePie" class="sgothic text-danger" style="text-align: end;">Total S/ 0.00</h5>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+                <button id="btnGrabarVenta" class="col-md-12 btn btn-warning" onclick="GrabarVenta();">
+                    <span style="text-transform: uppercase; font-weight:bold;">Grabar Venta</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div style="height:20px;"></div>
+    <div id="Div_Informacion"></div>
+    <div id="Div_Confirmacion"></div>
+    <div id="ModalRespuestaMsg"></div>
+    <hr style="border: 0;opacity: 0.8;height: 5px;background: #007bff;display: block;margin: 1em 0;" />
+    <div id="pie">
+        <div id="zonapie">
+            <div id="direcciones">
+                COPYRIGHT CEDIX @DateTime.Now.Year<br />
+                Todos los derechos reservados.
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Seleccionar_ddlTipoComprobante").val($("#Seleccionar_ddlTipoComprobante option:first").val());
+        $("#Seleccionar_ddlCliente").val($("#Seleccionar_ddlCliente option:first").val());
+        $("#Seleccionar_ddlTipoPago").val($("#Seleccionar_ddlTipoPago option:first").val());
+        $("#Seleccionar_ddlStockProducto").val($("#Seleccionar_ddlStockProducto option:first").val());
+        //$('.selectpicker').selectpicker();
+        $('.selectpicker').selectpicker('refresh');
+
+        $('#TablaDetalle').DataTable({
+            "scrollX": true,
+
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando del 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "order": []
+        });
+
+        $("#txtPrecioUnitario").on("input", function () {
+            var precio_unitario = $("#txtPrecioUnitario").val();
+
+            $("#txtPrecioUnitario").val(parseFloat(precio_unitario).toFixed(2));
+        });
+
+        $("#txtCantidad").on("input", function () {
+            var precio_unitario = $("#txtPrecioUnitario").val();
+            var cantidad = $("#txtCantidad").val();
+
+            var total = precio_unitario * cantidad;
+            $("#txtTotal").val(total.toFixed(2));
+            //$("#txtCantidad").val(parseFloat(cantidad).toFixed(2));
+        });
+
+        $(document).on("click", ".delete", function () {
+            var table = $('#TablaDetalle').DataTable();
+            table.row($(this).parents('tr')).remove().draw();
+        });
+
+    });
+
+</script>

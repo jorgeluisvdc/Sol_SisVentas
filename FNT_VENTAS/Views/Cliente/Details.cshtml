@@ -1,0 +1,74 @@
+﻿@model FNT_DataModel.cliente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clienteObservacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clienteObservacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_creacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_creacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_modificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_modificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_modificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_modificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.persona.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.persona.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idCliente }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

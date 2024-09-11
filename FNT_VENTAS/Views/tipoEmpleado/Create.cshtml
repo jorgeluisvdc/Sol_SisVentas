@@ -1,0 +1,73 @@
+﻿@model FNT_DataModel.tipoEmpleado
+
+@{
+    ViewBag.Title = "Create";
+}
+ <div style="height:15px;"></div>
+<h4>TIPO EMPLEADO > NUEVO</h4>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @*<div class="row">*@
+    <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <label class="control-label col-md-2">Descripción</label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.tipoEmpleadoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.tipoEmpleadoDescripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+        <div class="row">
+            <label class="control-label col-md-2">Estado</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*</div>*@
+        <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+        <div class="row">
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input type="submit" value="Guardar" class="btn btn-success" />
+
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+
+        </div>
+}
+    @*<div class="row">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+ <label class="control-label col-md-2">Descripción</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.tipoEmpleadoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.tipoEmpleadoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Estado</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Cancelar nuevo", "Index", null, new { @class = "btn btn-primary" })
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

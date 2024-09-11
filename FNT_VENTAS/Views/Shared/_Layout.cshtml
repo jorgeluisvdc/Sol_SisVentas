@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Ventas</title>
+
+
+
+    <link href="~/Content/NavBar/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/bootstrap-select.min.css"> <!--*******************-->
+    <link href="~/Content/NavBar/FontAwesome/All.css" rel="stylesheet" />
+    <link href="~/Content/NavBar/css/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    <link href="~/Content/NavBar/css/main.css" rel="stylesheet" />
+    <link href="~/Content/NavBar/css/sidebar-themes.css" rel="stylesheet" />
+
+    <link href="~/Content/DataTables/dataTables.bootstrap4.min.css" rel="stylesheet" /> <!--*******************-->
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" /> <!--*******************-->
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script> <!--*******************-->
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/jquery-1.11.4-ui.js"></script> <!--*******************-->
+
+    <script src="~/Scripts/sweetalert2/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="~/Content/sweetalert2/sweetalert2.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    @*<script src="~/Scripts/JSPrincipal.js"></script>*@
+    @*<script src="~/Scripts/Mantenimiento/TipoPago.js"></script>*@
+    <script src="~/Scripts/Mantenimiento/Cliente.js"></script>
+    <script src="~/Scripts/Mantenimiento/Ventas.js"></script>
+
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+
+</head>
+
+<body>
+    <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
+        <!-- Inicio Menu  -->
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+                <!-- sidebar-brand  -->
+                <div class="sidebar-item sidebar-brand">
+                    <a href="/" class="text-center">
+                        @*<img src="~/Content/NavBar/images/logo_cedix.png" class="img-fluid" style="height:50px; margin-left: auto; margin-right: auto; display: block;" />*@
+                        <p>Sistema de Ventas</p>
+                    </a>
+                </div>
+                <!-- sidebar-header  -->
+                <div class="sidebar-item sidebar-header d-flex flex-nowrap">
+                    <div class="user-pic">
+                        <img class="img-responsive rounded-circle" src="~/Content/NavBar/images/user.jpg" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">
+                            @Session["NomUsuario"]
+                            <br />
+                            <strong>@Session["ApePatUsuario"] @Session["ApeMatUsuario"]</strong>
+                        </span>
+                        @*<span class="user-role">@Session["TipoUsuario"]</span>*@ @*Administrator*@
+                        <span class="user-status">
+                            <i class="fa fa-circle"></i>
+                            @*<span>@Session["EstadoConexion"]</span>@*Online*@
+                            <span>Online</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- sidebar-menu  -->
+                @*<div class="sidebar-item sidebar-menu">
+                        <ul class="navbar-nav ml-auto">
+                            @Html.Action("MenuBase", "Home", new { controlador = Session["MenuControlador"] })
+                        </ul>
+                    </div>*@
+                
+                <!--  MENU PRINCIPAL **********************************************************************  -->
+                <div class="sidebar-item sidebar-menu">
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- MENU OPERACIONES ******************************************************* -->
+                        <li class="sidebar-dropdown active">
+                            <a href="#" title="OPERACIONES">
+                                <i class="fa fa-bars"></i>
+                                <span class="menu-text">OPERACIONES</span>
+                            </a>
+                            <div class="sidebar-submenu" style="display: block;">
+                                <ul>
+                                    <!-- ITEMS -->
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "Ventas")" title="Ventas" style="color:#22ff16;">
+                                            <span style="color:white;">Ventas</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "Categoria")" title="Categoria" style="color:#22ff16;">
+                                            <span style="color:white;">Productos</span>
+                                        </a>
+                                    </li>
+                                    
+
+                                    <!-- FIN -ITEMS -->
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- FIN - MENU MANTENEDORES **************************************************** -->
+
+                        <!-- MENU MANTENEDORES ******************************************************* -->
+                        <li class="sidebar-dropdown active">
+                            <a href="#" title="MANTENEDORES">
+                                <i class="fa fa-bars"></i>
+                                <span class="menu-text">MANTENEDORES</span>
+                            </a>
+                            <div class="sidebar-submenu" style="display: block;">
+                                <ul>
+                                    <!-- ITEMS -->
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "Cliente")" title="Clientes" style="color:#22ff16;">
+                                            <span style="color:white;">Clientes</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "Categoria")" title="Categoria" style="color:#22ff16;">
+                                            <span style="color:white;">Categoria</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "TipoComprobante")" title="Tipo de Comprobante" style="color:#22ff16;">
+                                            <span style="color:white;">Tipo de Comprobante</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "TipoPago")" title="Tipo de Pago" style="color:#22ff16;">
+                                            <span style="color:white;">Tipo de Pago</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "TipoEmpleado")" title="Tipo de Empleado" style="color:#22ff16;">
+                                            <span style="color:white;">Tipo de Empleado</span>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("Index", "TipoDocumento")" title="Tipo de Documento" style="color:#22ff16;">
+                                            <span style="color:white;">Tipo de Documento</span>
+                                        </a>
+                                    </li>
+                                    
+                                    
+                                    <!-- FIN -ITEMS -->
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- FIN - MENU MANTENEDORES **************************************************** -->
+                    </ul>
+                </div>
+                <!--  FIN - MENU PRINCIPAL *******************************************************************  -->
+                <!-- sidebar-menu  -->
+            </div>
+
+            <!-- sidebar-footer  -->
+            <div class="sidebar-footer">
+                <div>
+                    <a href="@Url.Action("CerrarSesion", "Home")">Salir</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Fin Menu  -->
+        <!-- page-content  -->
+        <main class="page-content">
+            @*<main class="page-content pt-2">*@
+            <div style="border-bottom: 1px solid #454545;">
+                <div style="height:10px;"></div>
+                <div class="row">
+                    <div class="col-sm-1 col-md-3">
+                        <div style="margin-left:30px; height:55px;float:none">
+                            <a id="toggle-sidebar" class="btn btn-primary" href="#">
+                                <i class="fa fa-bars fa-lg"></i>
+                            </a>
+                            <a id="pin-sidebar" class="btn btn-primary" href="#">
+                                <i class="fa fa-bars fa-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="overlay" class="overlay"></div>
+            <div class="container-fluid p-5" style="margin-top:-55px;">
+                @RenderBody()
+            </div>
+        </main>
+
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)*@
+
+    <!-- page-content" -->
+    <script src="~/Scripts/NavBar/js/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap-4.3.1.min.js"></script>
+    <script src="~/Scripts/NavBar/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Scripts/NavBar/js/main.js"></script>
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+
+    <!--******* CLIENTE ***************************************************************** -->
+    <input id="Id_HdConsulta_Cliente" type="hidden" value="@Url.Action("ConsultaCliente", "Cliente")" />
+    <input id="Id_HdEditarCliente" type="hidden" value="@Url.Action("EditarCliente", "Cliente")" />
+    <input id="Id_HdActualizar_Cliente" type="hidden" value="@Url.Action("ActualizarCliente", "Cliente")" />
+    <input id="Id_HdNuevo_Cliente" type="hidden" value="@Url.Action("NuevoCliente", "Cliente")" />
+    <input id="Id_HdGuardar_Cliente" type="hidden" value="@Url.Action("GrabarNuevo_Cliente", "Cliente")" />
+    <input id="Id_HdVerDetalleCliente" type="hidden" value="@Url.Action("EditarCliente", "Cliente")" />
+    <input id="Id_HdRegistroClienteCancelar" type="hidden" value="@Url.Action("RegistroClienteCancelar", "Cliente")" />
+    <!--******* FIN CLIENTE  ***************************************************************** -->
+
+    <!--******* VENTAS ***************************************************************** -->
+    <input id="Id_HdStockPrecioUnitario" type="hidden" value="@Url.Action("StockPrecioUnitario", "Ventas")" />
+    <input id="Id_HdAgregarProducto" type="hidden" value="@Url.Action("AgregarProductoSV", "Ventas")" />
+    <!--******* FIN VENTAS ***************************************************************** -->
+
+
+</body>
+</html>

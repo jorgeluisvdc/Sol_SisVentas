@@ -1,0 +1,42 @@
+﻿@{
+    //ViewBag.Title = Constantes.Aplicaciones.TipoPago.Titulo;
+    ViewBag.Title = "SISTEMA DE GESTIÓN DE VENTAS";
+    //ViewBag.SubTitle = "Proceso de registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ <div style="height:15px;"></div>
+<div id="contenedor">
+    <div>
+         <div style="height:15px;"></div>
+        <h3 class="sgothic">@ViewBag.Title</h3>
+        <!-- <h4 id="subtitle" class="sgothic text-primary">@ViewBag.SubTitle</h4> -->
+        <hr />
+    </div>
+
+    <div>
+        <!-- <button id="btnMnuClientes" type="button" class="col-md-2 btn btn-success btn-lg sgothic">Clientes</button> -->
+        <a class="col-md-2 btn btn-success btn-lg sgothic" href="@Url.Action("Index", "Cliente")">Clientes</a>
+        <button id="btnMnuProductos" type="button" class="col-md-2 btn btn-primary btn-lg sgothic">Productos</button>
+        @*<button id="btnMnuVentas" type="button" class="col-md-2 btn btn-warning btn-lg sgothic">Ventas</button>*@
+        <a class="col-md-2 btn btn-warning btn-lg sgothic" href="@Url.Action("Index", "Ventas")">Ventas</a>
+    </div>
+    <div style="height:20px;"></div>
+    <h4 class="sgothic text-primary">Ventas recientes:</h4>
+    <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+    <div id="Div_Registros">
+        @Html.Action("ConsultaVentas", "Ventas")
+    </div>
+    <div id="Div_Informacion"></div>
+    <div id="Div_Confirmacion"></div>
+    <div id="ModalRespuestaMsg"></div>
+    <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+    <div id="pie">
+        <div id="zonapie">
+            @*<div id="logo-laureate"><img src="~/Content/themes/base/images/logo-laureate.jpg" alt="Laureate" width="140" height="37" /></div>*@
+            <div id="direcciones">
+                COPYRIGHT Sistema de Ventas @DateTime.Now.Year<br />
+                Todos los derechos reservados.
+            </div>
+        </div>
+    </div>
+</div>
