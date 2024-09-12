@@ -668,7 +668,7 @@ namespace FNT_VENTAS.Controllers
             }
             else
             {
-                oCliente.UsuarioCreacion = "SISTEMA"; //Session["CUSUARIO"].ToString();
+                oCliente.UsuarioCreacion = "SISTEMA"; ////Session["CUSUARIO"].ToString();
                 oCliente.EstadoCliente = 1;
 
                 oDTORespuesta = oIVentasBusinessLogic.InsertarCliente(oCliente);
