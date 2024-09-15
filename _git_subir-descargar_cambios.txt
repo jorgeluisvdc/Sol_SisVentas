@@ -1,0 +1,16 @@
+***** subir cambios ***************************************
+git add .
+git commit -m "cambios"
+git push
+
+** opcion 2 **
+git log
+git status
+git commit -m "cambios"
+git push origin master (master o rama a la que se desea subir)
+
+
+*******************************************************************
+***** descargar cambios *******************************************
+git log
+git pull origin master (master o rama que se desea descargar)
