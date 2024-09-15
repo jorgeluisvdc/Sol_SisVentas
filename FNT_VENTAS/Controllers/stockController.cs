@@ -52,6 +52,9 @@ namespace FNT_VENTAS.Controllers
         {
             if (ModelState.IsValid)
             {
+                //agregar validacion de producto existente
+
+
                 db.stock.Add(stock);
                 db.SaveChanges();
                 return RedirectToAction("Index");
