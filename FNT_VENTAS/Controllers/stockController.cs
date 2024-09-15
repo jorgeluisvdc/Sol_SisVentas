@@ -39,7 +39,17 @@ namespace FNT_VENTAS.Controllers
         // GET: stock/Create
         public ActionResult Create()
         {
-            ViewBag.idProducto = new SelectList(db.producto, "idProducto", "productoDescripcion");
+            var oProducto = db.producto.AsQueryable();
+            var oStock = db.stock.Select(h=> h.idProducto).ToList();
+
+            var oListaProductos = (
+                                    from p in oProducto
+                                    where !oStock.Contains(p.idProducto)
+                                    select p 
+                                   ).ToList();
+
+
+            ViewBag.idProducto = new SelectList(oListaProductos, "idProducto", "productoDescripcion");
             return View();
         }
 
@@ -52,8 +62,7 @@ namespace FNT_VENTAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                //agregar validacion de producto existente
-
+             
 
                 db.stock.Add(stock);
                 db.SaveChanges();

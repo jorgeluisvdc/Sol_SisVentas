@@ -13,6 +13,10 @@
         <table id="TablaProducto" class="table table-striped table-bordered" style="width:100%;">
             <thead>
                 <tr>
+
+                    <th>
+                        CODIGO
+                    </th>
                     <th>
                         DESCRIPCION
                     </th>
@@ -22,6 +26,7 @@
                     <th>
                         CATEGORIA
                     </th>
+                    
                     <th>
                         ACCION
                     </th>
@@ -32,6 +37,9 @@
             {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.idProducto)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.productoDescripcion)
                         </td>
                         <td>
@@ -41,9 +49,9 @@
                             @Html.DisplayFor(modelItem => item.categoria.descripcion)
                         </td>
                         <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.idCategoria }, new { @class = "btn btn-success" })
-                            @Html.ActionLink("Detalles", "Details", new { id = item.idCategoria }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Borrar", "Delete", new { id = item.idCategoria }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Editar", "Edit", new { id = item.idProducto }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.idProducto}, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Borrar", "Delete", new { id = item.idProducto }, new { @class = "btn btn-danger" })
                         </td>
                     </tr>
                 }

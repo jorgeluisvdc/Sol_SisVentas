@@ -114,10 +114,54 @@ namespace FNT_VENTAS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            ViewBag.mensaje = "";
+            var oInventario = db.inventario.Where(s => s.idProducto == id).ToList();
+
+            if (oInventario.Count > 0 )
+            {
+                ViewBag.mensaje = "El producto ya tiene inventario";
+            }
+            else
+            {
+                var oStock = db.stock.Where(s => s.idProducto == id).ToList();
+                if (oStock.Count > 0)
+                {
+                    ViewBag.mensaje = "El producto ya tiene Stock";
+                }
+                else
+                {
+                    var oDetalle = db.detalleComprobante.Where(s => s.idProducto == id).ToList();
+                    if (oDetalle.Count > 0)
+                    {
+                        ViewBag.mensaje = "El producto ya tiene un Comprobante registrado";
+                    }
+                }
+            }
             producto producto = db.producto.Find(id);
-            db.producto.Remove(producto);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ViewBag.mensaje=="")
+            {
+                db.producto.Remove(producto);
+                db.SaveChanges();
+
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(producto);
+            }
+
+            //inventario stock = db.stock.Find(id);
+
+
+
+           
+            //ViewBag.mensaje = "no";
+            
+
+         
+           
         }
 
         protected override void Dispose(bool disposing)
