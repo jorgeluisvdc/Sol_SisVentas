@@ -200,6 +200,8 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\productoController.cs" />
+    <Compile Include="Controllers\stockController.cs" />
     <Compile Include="Controllers\tipoComprobanteController.cs" />
     <Compile Include="Controllers\TipoDocumentoController.cs" />
     <Compile Include="Controllers\tipoEmpleadoController.cs" />
@@ -364,6 +366,16 @@
     <Content Include="Views\Cliente\ClienteNuevo.cshtml" />
     <Content Include="Views\Cliente\ClientePrincipal.cshtml" />
     <Content Include="Views\Cliente\ClienteVerEditar.cshtml" />
+    <Content Include="Views\producto\Create.cshtml" />
+    <Content Include="Views\producto\Delete.cshtml" />
+    <Content Include="Views\producto\Details.cshtml" />
+    <Content Include="Views\producto\Edit.cshtml" />
+    <Content Include="Views\producto\Index.cshtml" />
+    <Content Include="Views\stock\Create.cshtml" />
+    <Content Include="Views\stock\Delete.cshtml" />
+    <Content Include="Views\stock\Details.cshtml" />
+    <Content Include="Views\stock\Edit.cshtml" />
+    <Content Include="Views\stock\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

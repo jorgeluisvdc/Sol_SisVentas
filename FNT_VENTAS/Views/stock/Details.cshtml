@@ -1,0 +1,48 @@
+﻿@model FNT_DataModel.stock
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div style="height:15px;"></div>
+<h4>PRODUCTO > DETALLES</h4>
+<hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+<div>
+    <div class="row">
+        <div class="col-md-2">
+            Descripción
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.producto.productoDescripcion)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Stock Actual
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.stockActual)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Stock Minimo
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.stockMinimo)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+           Stock Maximo
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(model => model.stockMaximo)
+        </div>
+    </div>
+    <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+</div>
+      
+<p>
+    @Html.ActionLink("ACEPTAR", "Index", null, new { @class = "btn btn-primary" })
+</p>

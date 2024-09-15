@@ -1,0 +1,53 @@
+﻿@model FNT_DataModel.producto
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+ <div style="height:15px;"></div>
+
+<h4>PRODUCTO > EDITAR</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idProducto)
+        <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+        <div class="row">
+            <label class="control-label col-md-2">Descripción</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.productoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.productoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="control-label col-md-2">Precio</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.precioUnitario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.precioUnitario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="control-label col-md-2">Categoria</label>
+            <div class="col-md-4">
+                @Html.DropDownList("idCategoria", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.idCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
+    </div>
+}
+

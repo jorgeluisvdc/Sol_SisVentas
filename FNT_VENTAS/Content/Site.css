@@ -76,7 +76,7 @@
 .btn-danger {
     background-color: #ff0000;
     border-color: #ff0000;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 .form-label {

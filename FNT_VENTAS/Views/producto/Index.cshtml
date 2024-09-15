@@ -1,0 +1,94 @@
+﻿@model IEnumerable<FNT_DataModel.producto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="height:15px;"></div>
+<h4>PRODUCTO</h4>
+<hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+
+<div class="row" style="font-size:11px;">
+    <div class="col-md-12">
+        <table id="TablaProducto" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>
+                        DESCRIPCION
+                    </th>
+                    <th>
+                        PRECIO
+                    </th>
+                    <th>
+                        CATEGORIA
+                    </th>
+                    <th>
+                        ACCION
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.productoDescripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precioUnitario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.categoria.descripcion)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.idCategoria }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Detalles", "Details", new { id = item.idCategoria }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Borrar", "Delete", new { id = item.idCategoria }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+<p>
+    @Html.ActionLink("Nuevo", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#TablaProducto').DataTable({
+            "scrollX": true,
+
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando del 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "order": []
+        });
+    });
+
+</script>
