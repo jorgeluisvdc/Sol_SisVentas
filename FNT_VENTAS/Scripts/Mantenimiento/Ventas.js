@@ -67,6 +67,7 @@ function AgregarProducto() {
 
             var table = $('#TablaDetalle').DataTable();
             table.row.add([
+                      codigo_producto,
                       producto,
                       parseFloat(precio_unitario).toFixed(2),
                       parseFloat(cantidad).toFixed(2),
@@ -90,4 +91,32 @@ function AgregarProducto() {
     });
 
     
+}
+
+function EliminarProducto(idProducto)
+{
+    
+    var RutaUrl = $("#Id_HdEliminarProducto").val();
+
+    debugger;
+
+    $.ajax({
+        url: RutaUrl,
+        data: {
+            id: idProducto
+        },
+        type: 'POST',
+        cache: false,
+        success: function (data, textStatus, jqXHR) {
+            //$("#divLoadingMensaje").hide();
+            //$("#divLoading").hide();
+            debugger;
+            $("#lblTotalComprobante").html('Total S/ ' + data);
+            $("#lblTotalComprobantePie").html('Total S/ ' + data);
+        },
+        error: function (req, status, error) {
+        }
+    });
+
+
 }
