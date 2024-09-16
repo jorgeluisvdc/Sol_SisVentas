@@ -687,7 +687,8 @@ namespace FNT_VENTAS.Controllers
                     oMensaje.Mensaje = Constantes.Mensajes.ERR_REGISTRAR_CLIENTE_ERR;
                     oMensaje.BtnCerrar = true;
                 }
-                return PartialView("../MensajeError/MensajeConfirmacion", oMensaje);
+                //return PartialView("../MensajeError/MensajeConfirmacion", oMensaje);
+                return Json(oMensaje.Mensaje.ToString());
             }
         }
     }

@@ -450,11 +450,13 @@ namespace FNT_VENTAS.Controllers
             */
             #endregion
 
-            var oListaDetComprobante = (List<DTODetalleComprobante>)Session["DETALLE_COMPROBANTE"];
+            var oLista = (List<DTODetalleComprobante>)Session["DETALLE_COMPROBANTE"];
             double oTotalComprobante = new double();
 
-            if (oListaDetComprobante != null)
+            if (oLista != null)
             {
+                var oListaDetComprobante = oLista.Where(d => d.IdProducto != oDetalle.IdProducto).ToList();
+
                 DTODetalleComprobante item = new DTODetalleComprobante();
                 item.IdProducto = oDetalle.IdProducto;
                 item.Cantidad = oDetalle.Cantidad;
@@ -463,8 +465,8 @@ namespace FNT_VENTAS.Controllers
                 oListaDetComprobante.Add(item);
 
                 oTotalComprobante = (double)(oListaDetComprobante.Sum(s => s.TotalProducto));
+                Session["DETALLE_COMPROBANTE"] = oListaDetComprobante;
             }
-
             return Json(oTotalComprobante.ToString("N2"));
         }
 

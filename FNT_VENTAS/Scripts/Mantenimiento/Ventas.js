@@ -40,7 +40,7 @@ function AgregarProducto() {
 
     var subtotal = total / 1.18;
     var igv = total - subtotal;
-    debugger;    
+    //debugger;    
 
     var oDet = {};
     oDet.IdProducto = codigo_producto;
@@ -66,6 +66,23 @@ function AgregarProducto() {
             $("#lblTotalComprobantePie").html('Total S/ ' + data);
 
             var table = $('#TablaDetalle').DataTable();
+
+            debugger;
+            var nFilas = table.rows().count();
+
+            if (nFilas > 0)
+            {
+                for (var i = 0; i < nFilas; i++)
+                {
+                    var codigoTabla = table.data()[i][0];
+                    if (table.data()[i][0] == codigo_producto)
+                    {
+                        $('#TablaDetalle').DataTable().row(i).remove().draw(); // se elimina una fila
+                        break;
+                    }
+                }
+            }
+
             table.row.add([
                       codigo_producto,
                       producto,

@@ -262,7 +262,7 @@ function ConfirmaRegistro_Cliente() {
 
 function Guardar_Cliente() {
     var ParamUrl = $("#Id_HdGuardar_Cliente").val();
-
+    debugger;
     var nombre = $("#txtNombre").val();
     var ape_pat = $("#txtApePaterno").val();
     var ape_mat = $("#txtApeMaterno").val();
@@ -298,7 +298,8 @@ function Guardar_Cliente() {
         success: function (data, textStatus, jqXHR) {
             $("#divLoadingMensaje").hide();
             $("#divLoading").hide();
-
+            debugger;
+            
             if (data.indexOf("Modal_Vnt") == -1) {
             }
             else {
