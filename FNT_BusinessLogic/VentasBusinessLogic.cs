@@ -126,9 +126,9 @@ namespace FNT_BusinessLogic
                               UsuarioModificacion = c.usuario_modificacion,
                               FechaModificacion = c.fecha_modificacion,
                           }).Where(c => c.IdCliente == (oConsulta.IdCliente == 0 ? c.IdCliente : oConsulta.IdCliente)).ToList()
-                            .Where(c => c.Nombre == (string.IsNullOrEmpty(oConsulta.Nombre) ? c.Nombre : oConsulta.Nombre)).ToList()
-                            .Where(c => c.ApePaterno == (string.IsNullOrEmpty(oConsulta.ApePaterno) ? c.ApePaterno : oConsulta.ApePaterno)).ToList()
-                            .Where(c => c.ApeMaterno == (string.IsNullOrEmpty(oConsulta.ApeMaterno) ? c.ApeMaterno : oConsulta.ApeMaterno)).ToList()
+                            //.Where(c => c.Nombre == (string.IsNullOrEmpty(oConsulta.Nombre) ? c.Nombre : oConsulta.Nombre)).ToList()
+                            //.Where(c => c.ApePaterno == (string.IsNullOrEmpty(oConsulta.ApePaterno) ? c.ApePaterno : oConsulta.ApePaterno)).ToList()
+                            //.Where(c => c.ApeMaterno == (string.IsNullOrEmpty(oConsulta.ApeMaterno) ? c.ApeMaterno : oConsulta.ApeMaterno)).ToList()
                             .Where(c => c.NroDocumento == (string.IsNullOrEmpty(oConsulta.NroDocumento) ? c.NroDocumento : oConsulta.NroDocumento)).ToList()
                             .Where(c => c.EstadoCliente == (oConsulta.EstadoCliente == null ? c.EstadoCliente : oConsulta.EstadoCliente)).ToList();
 
@@ -448,5 +448,75 @@ namespace FNT_BusinessLogic
             return oDTORespuesta;
         }
 
+        public DTOVentasRespuesta InsertarComprobante(DTOComprobantePago oComprobante,List<DTODetalleComprobante> oListaDet)
+        {
+            DTOHeader oDTOHeader = new DTOHeader();
+            DTOVentasRespuesta oDTORespuesta = new DTOVentasRespuesta();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(oComprobante.guid_comprobante))
+                {
+                    comprobantePago oIns = new comprobantePago();
+                    oIns.nroComprobante = oComprobante.nroComprobante;
+                    oIns.idTipoComprobante = oComprobante.idTipoComprobante;
+                    oIns.fecha = DateTime.Now; //oComprobante.fecha;
+                    oIns.igv = oComprobante.igv;
+                    oIns.total = oComprobante.total;
+                    oIns.idTipoPago = oComprobante.idTipoPago;
+                    oIns.usuario_creacion = oComprobante.usuario_creacion;
+                    oIns.fecha_creacion = DateTime.Now;
+                    oIns.guid_comprobante = oComprobante.guid_comprobante;
+
+                    db.comprobantePago.Add(oIns);
+                    db.SaveChanges();
+
+                    var oComp = db.comprobantePago.AsQueryable();
+                    var oComprobantePago = oComp.Where(c => c.guid_comprobante == oComprobante.guid_comprobante
+                                            ).FirstOrDefault();
+
+                    
+                    detalleComprobante oInsDet = new detalleComprobante();
+                    foreach (var oItem in oListaDet)
+                    {
+                        oInsDet.idComprobante = oComprobantePago.idComprobante;
+                        oInsDet.idProducto = oItem.IdProducto;
+                        oInsDet.cantidad = oItem.Cantidad;
+                        oInsDet.subTotal = oItem.SubTotal;
+                        oInsDet.total_detalle = oItem.TotalProducto;
+                        oInsDet.igv_detalle = oItem.IgvDet;
+                        //oInsDet.descuento = oDetItem.Descuento;
+                        oInsDet.usuario_creacion = oComprobante.usuario_creacion;
+                        oInsDet.fecha_creacion = DateTime.Now;
+
+                        db.detalleComprobante.Add(oInsDet);
+                        db.SaveChanges();
+                    }
+
+                    venta oInsVenta = new venta();
+                    oInsVenta.idCliente = oComprobante.IdCliente;
+                    oInsVenta.idEmpleado = 1;//oComprobante.emple;
+                    oInsVenta.idComprobante = oComprobantePago.idComprobante;
+                    
+                    oInsVenta.usuario_creacion = oComprobante.usuario_creacion;
+                    oInsVenta.fecha_creacion = DateTime.Now;
+
+                    db.venta.Add(oInsVenta);
+                    db.SaveChanges();
+
+                    oDTOHeader.CodigoRetorno = HeaderEnum.Correcto.ToString();
+                    oDTOHeader.DescRetorno = string.Empty;
+                    //oDTORespuesta.DTOCliente = oComprobante;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                oDTOHeader.CodigoRetorno = HeaderEnum.Incorrecto.ToString();
+                oDTOHeader.DescRetorno = ex.Message;
+            }
+            oDTORespuesta.DTOHeader = oDTOHeader;
+            return oDTORespuesta;
+        }
     }
 }

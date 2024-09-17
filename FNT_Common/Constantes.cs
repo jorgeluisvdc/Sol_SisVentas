@@ -18,6 +18,7 @@ namespace FNT_Common
 
             public static readonly string RES_ACTUALIZACION_CLIENTE_OK = "El cliente se ha actualizado correctamente.";
             public static readonly string RES_CLIENTE_OK = "El cliente ha sido registrado correctamente.";
+            public static readonly string RES_COMPROBANTE_OK = "El comprobante ha sido registrado correctamente.";
 
             /* CONFIRMACION */
             public static readonly string CNF_CANCELAR_SOLICITUD = "¿Está seguro(a) de cancelar la solicitud en proceso?";
@@ -34,6 +35,7 @@ namespace FNT_Common
 
             public static readonly string ERR_ACTUALIZAR_CLIENTE_ERR = "Se presentaron inconvenientes al intentar actualizar el cliente.";
             public static readonly string ERR_REGISTRAR_CLIENTE_ERR = "Sucedió un error al intentar registrar el cliente. Inténtelo nuevamente.";
+            public static readonly string ERR_REGISTRAR_COMPROBANTE_ERR = "Sucedió un error al intentar registrar el comprobante. Inténtelo nuevamente.";
 
         }
 

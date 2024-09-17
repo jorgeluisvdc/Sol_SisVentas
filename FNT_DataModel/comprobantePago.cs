@@ -17,8 +17,8 @@ namespace FNT_DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public comprobantePago()
         {
-            this.detalleComprobante = new HashSet<detalleComprobante>();
             this.venta = new HashSet<venta>();
+            this.detalleComprobante = new HashSet<detalleComprobante>();
         }
     
         public int idComprobante { get; set; }
@@ -38,8 +38,8 @@ namespace FNT_DataModel
         public virtual tipoComprobante tipoComprobante { get; set; }
         public virtual tipoPago tipoPago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<detalleComprobante> detalleComprobante { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<venta> venta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<detalleComprobante> detalleComprobante { get; set; }
     }
 }

@@ -1,0 +1,201 @@
+﻿@model FNT_VENTAS.Models.MOMensajeConfirmacion
+
+@{
+    Layout = null;
+}
+
+<div id="Modal_Vnt" class="modal fade show" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="sgothic text-white">@Model.Titulo</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="form-label zizou-regular">@Model.Mensaje</span>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.SubMensaje))
+                    {
+                        <div class="col-md-12">
+                            <span class="form-label zizou-regular @Model.SubMensajeColor">@Model.SubMensaje</span>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Descripcion))
+                    {
+                        <div class="col-md-12">
+                            <span class="form-label zizou-regular @Model.SubMensajeColor">@Model.Descripcion</span>
+                        </div>
+                    }
+                </div>
+                <div style="height:10px;"></div>
+                @if (Model.Parametros)
+                {
+                    <div class="container">
+                        @if (Model.IdProceso != 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-2 zizou-bold text-primary" style="text-align:left">Id Proceso</div>
+                                <div class="col-xs-1 zizou-bold text-primary" style="text-align:left">:</div>
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.IdProceso</div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.TipoDedicacion))
+                        {
+                            <div class="row">
+                                <div class="col-md-2 zizou-bold text-primary" style="text-align:left">Id Dedicación</div>
+                                <div class="col-xs-1 zizou-bold text-primary" style="text-align:left">:</div>
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.TipoDedicacion</div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.PeriodoPago))
+                        {
+                            <div class="row">
+                                <div class="col-md-2 zizou-bold text-primary" style="text-align:left">Periodo Pago</div>
+                                <div class="col-xs-1 zizou-bold text-primary" style="text-align:left">:</div>
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.PeriodoPago </div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Cierre))
+                        {
+                            <div class="row">
+                                <div class="col-md-2 zizou-bold" style="text-align:left">Cierre</div>
+                                <div class="col-xs-1 zizou-bold" style="text-align:left">:</div>
+                                <div class="col-md-2" style="text-align:left">@Model.Cierre</div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.FechaInicio))
+                        {
+                            <div class="row">
+                                <div class="col-md-2 zizou-bold" style="text-align:left">Fecha inicio</div>
+                                <div class="col-xs-1 zizou-bold" style="text-align:left">:</div>
+                                <div class="col-md-1" style="text-align:left">@Model.FechaInicio</div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.FechaFin))
+                        {
+                            <div class="row">
+                                <div class="col-md-2 zizou-bold" style="text-align:left">Fecha fin</div>
+                                <div class="col-xs-1 zizou-bold" style="text-align:left">:</div>
+                                <div class="col-md-1" style="text-align:left">@Model.FechaFin</div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.FechaCreacion))
+                        {
+                            <div class="row">
+                                <div class="col-md-4 zizou-bold" style="text-align:left">Fecha Creación</div>
+                                <div class="col-xs-1 zizou-bold" style="text-align:left">:</div>
+                                <div class="col-md-4" style="text-align:left">@Model.FechaCreacion</div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.UsuarioCreador))
+                        {
+                            <div class="row">
+                                <div class="col-md-4 zizou-bold" style="text-align:left">Usuario Creación</div>
+                                <div class="col-xs-1 zizou-bold" style="text-align:left">:</div>
+                                <div class="col-md-4" style="text-align:left">@Model.UsuarioCreador</div>
+                            </div>
+                        }
+                    </div>
+                }
+                @if (Model.ResultadoEjecucion)
+                {
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2 zizou-bold text-primary" style="text-align:left">@Model.ResultadoNombreVal1</div>
+                            <div class="col-xs-1 zizou-bold text-primary" style="text-align:left">:</div>
+                            @if (!string.IsNullOrEmpty(Model.ResultadoValText1))
+                            {
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.ResultadoValText1</div>
+                            }
+                            else
+                            {
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.ResultadoVal1</div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-2 zizou-bold text-primary" style="text-align:left">@Model.ResultadoNombreVal2</div>
+                            <div class="col-xs-1 zizou-bold text-primary" style="text-align:left">:</div>
+                            @if (!string.IsNullOrEmpty(Model.ResultadoValText2))
+                            {
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.ResultadoValText2</div>
+                            }
+                            else
+                            {
+                                <div class="col-md-1 text-primary" style="text-align:left">@Model.ResultadoVal2</div>
+                            }
+                        </div>
+                    </div>
+                    if (!string.IsNullOrEmpty(Model.PreguntaConfirmacion))
+                    {
+                        <div class="container">
+                            <div class="row">
+                                <span class="form-label zizou-regular">@Model.PreguntaConfirmacion</span>
+                            </div>
+                        </div>
+                    }
+                }
+
+                @if (!string.IsNullOrEmpty(Model.SubMensajePie))
+                {
+                    <div class="container">
+                        <div class="row">
+                            <span class="form-label zizou-regular">@Model.SubMensajePie</span>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <div class="modal-footer">
+                @if (Model.BtnAceptar)
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="window.location.href = '@Model.Redirecciona'">Aceptar</button>
+                }
+                @if (Model.BtnCancelar)
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="cerrarModal();">Cancelar</button>
+                }
+                @if (Model.BtnCerrar)
+                {
+                    var oVntCerrar = Newtonsoft.Json.JsonConvert.SerializeObject(Model.VntCerrar, Newtonsoft.Json.Formatting.Indented);
+                    var oCerrarLoading = Newtonsoft.Json.JsonConvert.SerializeObject(Model.CerrarLoading, Newtonsoft.Json.Formatting.Indented);
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="cerrarModal(@oVntCerrar,@oCerrarLoading);">Cerrar</button>
+                }
+                @if (Model.BtnDescargar)
+                {
+                    <a class="btn btn-primary col-3 btn-sm" href="@Url.Action(Model.Funcion, Model.Controlador)">Descargar</a>
+                }
+            </div>
+            <input id="IdSeleccionar_ddlModalidadPeriodo" type="hidden" value="@ViewBag.Error" />
+        </div>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(Model.NombreProceso))
+{
+    <input id="lblTipoEvaluar" type="hidden" value="Modal_Vnt_@Model.NombreProceso" />
+}
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#Modal_Vnt").modal();
+        });
+</script>
+
+<script>
+        function cerrarModal(vnt,loading) {
+            if (vnt) {
+                $("#Modal_Vnt").removeClass("show");
+                ajustarBloqueoDePagina();
+                $('html, body').animate({ scrollTop: '0px' }, 800);
+                if(loading)
+                {
+                    $("#divLoadingMensaje").hide();
+                    $("#divLoading").hide();
+                }
+            }
+            else {
+                $("#divLoadingMensaje").hide();
+                $("#divLoading").hide();
+            }
+        }
+</script>

@@ -28,7 +28,6 @@ namespace FNT_DataModel
         public virtual DbSet<categoria> categoria { get; set; }
         public virtual DbSet<cliente> cliente { get; set; }
         public virtual DbSet<comprobantePago> comprobantePago { get; set; }
-        public virtual DbSet<detalleComprobante> detalleComprobante { get; set; }
         public virtual DbSet<empleado> empleado { get; set; }
         public virtual DbSet<inventario> inventario { get; set; }
         public virtual DbSet<persona> persona { get; set; }
@@ -40,5 +39,6 @@ namespace FNT_DataModel
         public virtual DbSet<tipoPago> tipoPago { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<venta> venta { get; set; }
+        public virtual DbSet<detalleComprobante> detalleComprobante { get; set; }
     }
 }

@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="DBSisVentasModel.categoria" Width="1.5" PointX="7.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="DBSisVentasModel.cliente" Width="1.5" PointX="7.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DBSisVentasModel.comprobantePago" Width="1.5" PointX="1.375" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBSisVentasModel.detalleComprobante" Width="1.5" PointX="3.5" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="DBSisVentasModel.empleado" Width="1.5" PointX="7.75" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBSisVentasModel.inventario" Width="1.5" PointX="9.875" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="DBSisVentasModel.persona" Width="1.5" PointX="10" PointY="6" IsExpanded="true" />
@@ -25,9 +24,7 @@
         <AssociationConnector Association="DBSisVentasModel.FK_venta_cliente" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_comprobantePago_tipoComprobante" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_comprobantePago_tipoPago" ManuallyRouted="false" />
-        <AssociationConnector Association="DBSisVentasModel.FK_detalleComprobante_comprobantePago" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_venta_comprobantePago" ManuallyRouted="false" />
-        <AssociationConnector Association="DBSisVentasModel.FK_detalleComprobante_producto" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_empleado_persona" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_empleado_tipoEmpleado" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_usuario_empleado" ManuallyRouted="false" />
@@ -35,6 +32,9 @@
         <AssociationConnector Association="DBSisVentasModel.FK_inventario_producto" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_persona_tipoDocumento" ManuallyRouted="false" />
         <AssociationConnector Association="DBSisVentasModel.FK_stock_producto" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBSisVentasModel.detalleComprobante" Width="1.5" PointX="3.5" PointY="2.375" />
+        <AssociationConnector Association="DBSisVentasModel.FK_detalleComprobante_comprobantePago" />
+        <AssociationConnector Association="DBSisVentasModel.FK_detalleComprobante_producto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

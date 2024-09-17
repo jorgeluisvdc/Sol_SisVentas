@@ -51,6 +51,7 @@ namespace FNT_BusinessEntities.Interface
         public Nullable<double> TotalComprobante { get; set; }
         public int IdtipoComprobante { get; set; }
         public string DescTipoComprobante { get; set; }
+        public string ObservacionVenta { get; set; }
         public string UsuarioCreacion { get; set; }
         public Nullable<DateTime> FechaCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
@@ -133,6 +134,7 @@ namespace FNT_BusinessEntities.Interface
         public int IdProducto { get; set; }
         public Nullable<int> Cantidad { get; set; }
         public Nullable<double> SubTotal { get; set; }
+        public Nullable<double> IgvDet { get; set; }
         public Nullable<double> TotalProducto { get; set; }
         public Nullable<double> Descuento { get; set; }
         public string Usuario_Creacion { get; set; }
@@ -140,8 +142,24 @@ namespace FNT_BusinessEntities.Interface
         public string Usuario_Modificacion { get; set; }
         public Nullable<System.DateTime> Fecha_Modificacion { get; set; }
         public string Guid_Comprobante { get; set; }
-
     }
 
+    public class DTOComprobantePago
+    {
+        public int idComprobante { get; set; }
+        public int IdCliente { get; set; }
+        public string nroComprobante { get; set; }
+        public int idTipoComprobante { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
+        public Nullable<double> igv { get; set; }
+        public Nullable<double> total { get; set; }
+        public int idTipoPago { get; set; }
+        public Nullable<double> descuento { get; set; }
+        public string usuario_creacion { get; set; }
+        public Nullable<System.DateTime> fecha_creacion { get; set; }
+        public string usuario_modificacion { get; set; }
+        public Nullable<System.DateTime> fecha_modificacion { get; set; }
+        public string guid_comprobante { get; set; }
+    }
 
 }

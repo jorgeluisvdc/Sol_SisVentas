@@ -260,7 +260,7 @@ function ConfirmaRegistro_Cliente() {
     $('html, body').animate({ scrollTop: $("#Div_Confirmacion").offset().top }, 800);
 }
 
-function Guardar_Cliente() {
+function Guardar_Cliente() { 
     var ParamUrl = $("#Id_HdGuardar_Cliente").val();
     debugger;
     var nombre = $("#txtNombre").val();

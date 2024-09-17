@@ -40,14 +40,36 @@ function AgregarProducto() {
 
     var subtotal = total / 1.18;
     var igv = total - subtotal;
-    //debugger;    
+    debugger;    
+
+    var oMensaje = '';
+
+    if (codigo_producto <= 0)
+    {
+        oMensaje = 'Debe seleccionar un producto';
+    }
+    else if (cantidad <= 0) {
+        oMensaje = 'Debe ingresar una cantidad valida';
+    }
+
+    if (oMensaje != '')
+    {
+        Swal.fire({
+            title: oMensaje,
+            showLoaderOnConfirm: true,
+            confirmButtonText: 'Aceptar',
+            icon: 'error',
+        }).then((result) => { });
+        return false;
+    }
 
     var oDet = {};
     oDet.IdProducto = codigo_producto;
     //oDet.precio_unitario = precio_unitario;
     oDet.Cantidad = cantidad;
-    oDet.TotalProducto = total;
     oDet.SubTotal = subtotal;
+    oDet.IgvDet = igv;
+    oDet.TotalProducto = total;
     //oDet.IdProducto = codigo_producto;
     //oDet.IdProducto = codigo_producto;
 
@@ -87,7 +109,7 @@ function AgregarProducto() {
                       codigo_producto,
                       producto,
                       parseFloat(precio_unitario).toFixed(2),
-                      parseFloat(cantidad).toFixed(2),
+                      parseInt(cantidad),
                       parseFloat(igv).toFixed(2),
                       parseFloat(subtotal).toFixed(2),
                       parseFloat(total).toFixed(2),
@@ -134,6 +156,88 @@ function EliminarProducto(idProducto)
         error: function (req, status, error) {
         }
     });
+}
 
+function GrabarVenta() {
+    
+    //window.location.href = "/Ventas";
+    //debugger;
+    //return false;
+
+    Swal.fire({
+        title: '¿Desea registrar el comprobante actual?',
+        showLoaderOnConfirm: true,
+        confirmButtonText: 'Aceptar',
+        showCancelButton: true,
+        icon: 'success',
+    }).then((result) =>
+    {
+        if (result.isConfirmed)
+        {
+            var ParamUrl = $("#Id_HdGrabarVenta").val();
+            debugger;
+
+            var tipo_doc = $("#Seleccionar_ddlTipoComprobante").val();
+            var nro_doc = $("#txtNroComprobante").val();
+            var cliente = $("#Seleccionar_ddlCliente").val();
+            var tipo_pago = $("#Seleccionar_ddlTipoPago").val();
+            
+            $("#divLoadingMensaje").show();
+            $("#divLoading").show();
+            //////////ajustarBloqueoDePagina();
+
+            var oComp = {};
+            oComp.idTipoComprobante = tipo_doc;
+            oComp.nroComprobante = nro_doc;
+            oComp.IdCliente = cliente;
+            oComp.idTipoPago = tipo_pago;
+
+            $.ajax({
+                url: ParamUrl,
+                data: {
+                    oComprobante: oComp
+                },
+                type: "post",
+                cache: false,
+                success: function (data, textStatus, jqXHR) {
+                    $("#divLoadingMensaje").hide();
+                    $("#divLoading").hide();
+                    debugger;
+
+                    if (data.indexOf("Modal_Vnt") == -1) {
+                    }
+                    else {
+                        if (data.indexOf("Modal_Vnt_OK") == -1) {
+                            $("#ModalRespuestaMsg").html(data);
+                        }
+                        else {
+
+                            Swal.fire({
+                                title: 'El comprobante ha sido registrado correctamente!',
+                                showLoaderOnConfirm: true,
+                                confirmButtonText: 'Aceptar',
+                                icon: 'success',
+                            }).then((result) => { window.location.href = "/Ventas"; });
+
+                            //$("#Div_Informacion").html("");
+                            //$("#Div_Confirmacion").html("");
+                            
+                        }
+                    }
+                },
+                error: function (req, status, error) {
+                }
+            });
+
+            
+
+        }
+        else //if (result.isDenied)
+        {
+            debugger;
+            return false;
+        }
+
+    });
 
 }

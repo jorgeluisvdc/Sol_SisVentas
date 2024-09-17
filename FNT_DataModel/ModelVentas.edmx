@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBSisVentasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBSisVentasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="idCategoria" />
@@ -58,6 +58,8 @@
           <Property Name="idProducto" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" />
           <Property Name="subTotal" Type="float" />
+          <Property Name="igv_detalle" Type="float" />
+          <Property Name="total_detalle" Type="float" />
           <Property Name="descuento" Type="float" />
           <Property Name="usuario_creacion" Type="varchar" MaxLength="20" />
           <Property Name="fecha_creacion" Type="datetime" />
@@ -470,8 +472,7 @@
             <End Role="venta" EntitySet="venta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBSisVentasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -522,27 +523,8 @@
           <Property Name="guid_comprobante" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tipoComprobante" Relationship="Self.FK_comprobantePago_tipoComprobante" FromRole="comprobantePago" ToRole="tipoComprobante" />
           <NavigationProperty Name="tipoPago" Relationship="Self.FK_comprobantePago_tipoPago" FromRole="comprobantePago" ToRole="tipoPago" />
-          <NavigationProperty Name="detalleComprobante" Relationship="Self.FK_detalleComprobante_comprobantePago" FromRole="comprobantePago" ToRole="detalleComprobante" />
           <NavigationProperty Name="venta" Relationship="Self.FK_venta_comprobantePago" FromRole="comprobantePago" ToRole="venta" />
-        </EntityType>
-        <EntityType Name="detalleComprobante">
-          <Key>
-            <PropertyRef Name="idDetalleComprobante" />
-            <PropertyRef Name="idComprobante" />
-          </Key>
-          <Property Name="idDetalleComprobante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idComprobante" Type="Int32" Nullable="false" />
-          <Property Name="idProducto" Type="Int32" Nullable="false" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="subTotal" Type="Double" />
-          <Property Name="descuento" Type="Double" />
-          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
-          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
-          <Property Name="guid_comprobante" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="comprobantePago" Relationship="Self.FK_detalleComprobante_comprobantePago" FromRole="detalleComprobante" ToRole="comprobantePago" />
-          <NavigationProperty Name="producto" Relationship="Self.FK_detalleComprobante_producto" FromRole="detalleComprobante" ToRole="producto" />
+          <NavigationProperty Name="detalleComprobante" Relationship="DBSisVentasModel.FK_detalleComprobante_comprobantePago" FromRole="comprobantePago" ToRole="detalleComprobante" />
         </EntityType>
         <EntityType Name="empleado">
           <Key>
@@ -610,9 +592,9 @@
           <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="categoria" Relationship="Self.FK_producto_categoria" FromRole="producto" ToRole="categoria" />
-          <NavigationProperty Name="detalleComprobante" Relationship="Self.FK_detalleComprobante_producto" FromRole="producto" ToRole="detalleComprobante" />
           <NavigationProperty Name="inventario" Relationship="Self.FK_inventario_producto" FromRole="producto" ToRole="inventario" />
           <NavigationProperty Name="stock" Relationship="Self.FK_stock_producto" FromRole="producto" ToRole="stock" />
+          <NavigationProperty Name="detalleComprobante" Relationship="DBSisVentasModel.FK_detalleComprobante_producto" FromRole="producto" ToRole="detalleComprobante" />
         </EntityType>
         <EntityType Name="stock">
           <Key>
@@ -773,18 +755,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_detalleComprobante_comprobantePago">
-          <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="1" />
-          <End Role="detalleComprobante" Type="Self.detalleComprobante" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="comprobantePago">
-              <PropertyRef Name="idComprobante" />
-            </Principal>
-            <Dependent Role="detalleComprobante">
-              <PropertyRef Name="idComprobante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_venta_comprobantePago">
           <End Role="comprobantePago" Type="Self.comprobantePago" Multiplicity="0..1" />
           <End Role="venta" Type="Self.venta" Multiplicity="*" />
@@ -794,18 +764,6 @@
             </Principal>
             <Dependent Role="venta">
               <PropertyRef Name="idComprobante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_detalleComprobante_producto">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="detalleComprobante" Type="Self.detalleComprobante" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="detalleComprobante">
-              <PropertyRef Name="idProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -897,7 +855,6 @@
           <EntitySet Name="categoria" EntityType="Self.categoria" />
           <EntitySet Name="cliente" EntityType="Self.cliente" />
           <EntitySet Name="comprobantePago" EntityType="Self.comprobantePago" />
-          <EntitySet Name="detalleComprobante" EntityType="Self.detalleComprobante" />
           <EntitySet Name="empleado" EntityType="Self.empleado" />
           <EntitySet Name="inventario" EntityType="Self.inventario" />
           <EntitySet Name="persona" EntityType="Self.persona" />
@@ -929,17 +886,9 @@
             <End Role="tipoPago" EntitySet="tipoPago" />
             <End Role="comprobantePago" EntitySet="comprobantePago" />
           </AssociationSet>
-          <AssociationSet Name="FK_detalleComprobante_comprobantePago" Association="Self.FK_detalleComprobante_comprobantePago">
-            <End Role="comprobantePago" EntitySet="comprobantePago" />
-            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
-          </AssociationSet>
           <AssociationSet Name="FK_venta_comprobantePago" Association="Self.FK_venta_comprobantePago">
             <End Role="comprobantePago" EntitySet="comprobantePago" />
             <End Role="venta" EntitySet="venta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_detalleComprobante_producto" Association="Self.FK_detalleComprobante_producto">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
           </AssociationSet>
           <AssociationSet Name="FK_empleado_persona" Association="Self.FK_empleado_persona">
             <End Role="persona" EntitySet="persona" />
@@ -969,7 +918,61 @@
             <End Role="producto" EntitySet="producto" />
             <End Role="stock" EntitySet="stock" />
           </AssociationSet>
+          <EntitySet Name="detalleComprobante" EntityType="DBSisVentasModel.detalleComprobante" />
+          <AssociationSet Name="FK_detalleComprobante_comprobantePago" Association="DBSisVentasModel.FK_detalleComprobante_comprobantePago">
+            <End Role="comprobantePago" EntitySet="comprobantePago" />
+            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleComprobante_producto" Association="DBSisVentasModel.FK_detalleComprobante_producto">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="detalleComprobante" EntitySet="detalleComprobante" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="detalleComprobante">
+          <Key>
+            <PropertyRef Name="idDetalleComprobante" />
+            <PropertyRef Name="idComprobante" />
+          </Key>
+          <Property Name="idDetalleComprobante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idComprobante" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="subTotal" Type="Double" />
+          <Property Name="igv_detalle" Type="Double" />
+          <Property Name="total_detalle" Type="Double" />
+          <Property Name="descuento" Type="Double" />
+          <Property Name="usuario_creacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_modificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <Property Name="guid_comprobante" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="comprobantePago" Relationship="DBSisVentasModel.FK_detalleComprobante_comprobantePago" FromRole="detalleComprobante" ToRole="comprobantePago" />
+          <NavigationProperty Name="producto" Relationship="DBSisVentasModel.FK_detalleComprobante_producto" FromRole="detalleComprobante" ToRole="producto" />
+        </EntityType>
+        <Association Name="FK_detalleComprobante_comprobantePago">
+          <End Type="DBSisVentasModel.comprobantePago" Role="comprobantePago" Multiplicity="1" />
+          <End Type="DBSisVentasModel.detalleComprobante" Role="detalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantePago">
+              <PropertyRef Name="idComprobante" />
+            </Principal>
+            <Dependent Role="detalleComprobante">
+              <PropertyRef Name="idComprobante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleComprobante_producto">
+          <End Type="DBSisVentasModel.producto" Role="producto" Multiplicity="1" />
+          <End Type="DBSisVentasModel.detalleComprobante" Role="detalleComprobante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="detalleComprobante">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1013,23 +1016,6 @@
                 <ScalarProperty Name="igv" ColumnName="igv" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="idTipoPago" ColumnName="idTipoPago" />
-                <ScalarProperty Name="descuento" ColumnName="descuento" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
-                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
-                <ScalarProperty Name="guid_comprobante" ColumnName="guid_comprobante" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="detalleComprobante">
-            <EntityTypeMapping TypeName="DBSisVentasModel.detalleComprobante">
-              <MappingFragment StoreEntitySet="detalleComprobante">
-                <ScalarProperty Name="idDetalleComprobante" ColumnName="idDetalleComprobante" />
-                <ScalarProperty Name="idComprobante" ColumnName="idComprobante" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="subTotal" ColumnName="subTotal" />
                 <ScalarProperty Name="descuento" ColumnName="descuento" />
                 <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
                 <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
@@ -1195,6 +1181,25 @@
                 <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
                 <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
                 <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalleComprobante">
+            <EntityTypeMapping TypeName="DBSisVentasModel.detalleComprobante">
+              <MappingFragment StoreEntitySet="detalleComprobante">
+                <ScalarProperty Name="guid_comprobante" ColumnName="guid_comprobante" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="usuario_modificacion" ColumnName="usuario_modificacion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="total_detalle" ColumnName="total_detalle" />
+                <ScalarProperty Name="igv_detalle" ColumnName="igv_detalle" />
+                <ScalarProperty Name="subTotal" ColumnName="subTotal" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idComprobante" ColumnName="idComprobante" />
+                <ScalarProperty Name="idDetalleComprobante" ColumnName="idDetalleComprobante" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -19,6 +19,8 @@ namespace FNT_DataModel
         public int idProducto { get; set; }
         public Nullable<int> cantidad { get; set; }
         public Nullable<double> subTotal { get; set; }
+        public Nullable<double> igv_detalle { get; set; }
+        public Nullable<double> total_detalle { get; set; }
         public Nullable<double> descuento { get; set; }
         public string usuario_creacion { get; set; }
         public Nullable<System.DateTime> fecha_creacion { get; set; }
