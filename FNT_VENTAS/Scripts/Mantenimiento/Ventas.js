@@ -283,3 +283,51 @@ function BuscarVentas() {
     });
 
 }
+
+function VerDetalleVenta(oVenta) {
+    var ParamUrl = $("#Id_HdVerDetalleVenta").val();
+    debugger;
+
+    $.ajax({
+        url: ParamUrl,
+        data: {
+            oVenta: oVenta
+        },
+        type: "post",
+        cache: false,
+        success: function (data, textStatus, jqXHR) {
+            $("#divLoadingMensaje").hide();
+            $("#divLoading").hide();
+            debugger;
+
+            if (data.indexOf("Modal_Vnt") == -1) {
+                Swal.fire({
+                    title: 'Detalle de venta',
+                    showLoaderOnConfirm: true,
+                    confirmButtonText: 'Aceptar',
+                    icon: 'success',
+                    html: data,
+                }).then((result) => {  });
+
+            }
+            else {
+                if (data.indexOf("Modal_Vnt_OK") == -1) {
+                    $("#ModalRespuestaMsg").html(data);
+                }
+                else {
+
+                    
+
+                    //$("#Div_Informacion").html("");
+                    //$("#Div_Confirmacion").html("");
+
+                }
+            }
+        },
+        error: function (req, status, error) {
+        }
+    });
+
+
+
+}

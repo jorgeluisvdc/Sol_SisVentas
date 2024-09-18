@@ -378,6 +378,7 @@
     <Content Include="Views\stock\Index.cshtml" />
     <Content Include="Views\MensajeError\MensajeConfirmacion.cshtml" />
     <Content Include="Views\Ventas\ReporteVentas.cshtml" />
+    <Content Include="Views\Ventas\DetalleVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

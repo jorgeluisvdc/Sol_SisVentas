@@ -63,6 +63,7 @@ namespace FNT_BusinessLogic
                           select new DTOVenta
                           {
                               IdVenta = v.idVenta,
+                              IdComprobante = cp.idComprobante,
                               NombreCliente = p.nombre,
                               ApePatCliente = p.apePaterno,
                               ApeMatCliente = p.apeMaterno,
@@ -84,6 +85,54 @@ namespace FNT_BusinessLogic
                 oDTOHeader.CodigoRetorno = HeaderEnum.Correcto.ToString();
                 oDTOHeader.DescRetorno = string.Empty;
                 oRespuesta.ListaDTOVenta = oLista;
+            }
+            catch (Exception ex)
+            {
+                oDTOHeader.CodigoRetorno = HeaderEnum.Incorrecto.ToString();
+                oDTOHeader.DescRetorno = ex.Message;
+                //DataUtil.EscribirLog("VentasBusinessLogic | Catch : Error ObtenerListaVentas | ToString --> " + ex.ToString());
+                //DataUtil.EscribirLog("VentasBusinessLogic | Catch : Error ObtenerListaVentas | Message --> " + ex.Message);
+            }
+            oRespuesta.DTOHeader = oDTOHeader;
+            return oRespuesta;
+        }
+
+        public DTOVentasRespuesta ObtenerListaDetVentas(DTOVentasConsulta oConsulta)
+        {
+            DTOHeader oDTOHeader = new DTOHeader();
+            DTOVentasRespuesta oRespuesta = new DTOVentasRespuesta();
+            List<DTODetalleComprobante> oLista = new List<DTODetalleComprobante>();
+
+            try
+            {
+                var oDet = db.detalleComprobante.AsQueryable();
+                var oProd = db.producto.AsQueryable();
+
+                oLista = (from d in oDet
+                          join p in oProd on new { idProducto = (int)d.idProducto }
+                                equals new { p.idProducto }
+                          where d.idComprobante == oConsulta.IdComprobante
+                          select new DTODetalleComprobante
+                          {
+                              IdProducto = d.idProducto,
+                              DescProducto = p.productoDescripcion,
+                              PrecioUnitario = p.precioUnitario,
+                              Cantidad = d.cantidad,
+                              TotalProducto = d.total_detalle,
+
+                              Usuario_Creacion = d.usuario_creacion,
+                              Fecha_Creacion = d.fecha_creacion,
+                              Usuario_Modificacion = d.usuario_modificacion,
+                              Fecha_Modificacion = d.fecha_modificacion,
+                          }).ToList();
+                //.Where(t => t.IdTipoPago == (oConsulta.CodigoConsulta == null ? t.IdTipoPago : oConsulta.CodigoConsulta)).ToList()
+                //.Where(t => t.Descripcion == (string.IsNullOrEmpty(oConsulta.ValorConsulta) ? t.Descripcion : oConsulta.ValorConsulta)).ToList()
+                //.Where(t => t.FechaCreacion >= (oConsulta.FechaIni == null ? t.FechaCreacion : oConsulta.FechaIni)).ToList()
+                //.Where(t => t.FechaCreacion <= (oConsulta.FechaFin == null ? t.FechaCreacion : oConsulta.FechaFin)).ToList();
+
+                oDTOHeader.CodigoRetorno = HeaderEnum.Correcto.ToString();
+                oDTOHeader.DescRetorno = string.Empty;
+                oRespuesta.ListaDTODetalleComprobante = oLista;
             }
             catch (Exception ex)
             {

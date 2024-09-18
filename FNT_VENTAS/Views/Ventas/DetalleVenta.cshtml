@@ -1,0 +1,98 @@
+﻿@model List<FNT_BusinessEntities.Interface.DTODetalleComprobante>
+@{
+    Layout = null;
+
+    var oFecha = ViewBag.Venta.FechaCreacion.ToString("dd/MM/yyyy");
+    var oVenta = ViewBag.Venta;
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-4">Tip.Compr.:</div>
+        <div class="col-md-8">@ViewBag.Venta.DescTipoComprobante</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Nro.Compr.:</div>
+        <div class="col-md-8">@ViewBag.Venta.NroComprobante</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Fecha:</div>
+        <div class="col-md-8">@oFecha</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Cliente:</div>
+        <div class="col-md-8">@(ViewBag.Venta.NombreCliente + " " + ViewBag.Venta.ApePatCliente + " " + ViewBag.Venta.ApeMatCliente)</div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">Total:</div>
+        <div class="col-md-8">S/ @ViewBag.Venta.TotalComprobante</div>
+    </div>
+</div>
+
+
+<div class="row" style="font-size:11px;">
+    <div class="col-md-12">
+        <table id="TablaDetVentas" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>COD.PRODUCTO</th>
+                    <th>PRODUCTO</th>
+                    <th>PRECIO UNIT</th>
+                    <th>CANTIDAD</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdProducto</td>
+                        <td>@item.DescProducto</td>
+                        <td>@item.PrecioUnitario</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.TotalProducto</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#TablaDetVentas').DataTable({
+            "scrollX": true,
+
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando del 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "order": []
+        });
+    });
+
+</script>

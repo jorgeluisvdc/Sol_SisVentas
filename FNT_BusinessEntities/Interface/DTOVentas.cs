@@ -15,6 +15,7 @@ namespace FNT_BusinessEntities.Interface
         //public DTOStock DTOStock { get; set; }
         public List<DTOTipoPago> ListaDTOTipoPago { get; set; }
         public List<DTOVenta> ListaDTOVenta { get; set; }
+        public List<DTODetalleComprobante> ListaDTODetalleComprobante { get; set; }
         public List<DTOCliente> ListaDTOCliente { get; set; }
         public List<DTOTipoDocumento> ListaDTOTipoDocumento { get; set; }
         public List<DTOTipoComprobante> ListaDTOTipoComprobante { get; set; }
@@ -30,6 +31,7 @@ namespace FNT_BusinessEntities.Interface
         public string Vista { get; set; }
         public string Funcion { get; set; }
         public Nullable<int> Estado { get; set; }
+        public int IdComprobante { get; set; }
 
         public DateTime? FechaIni { get; set; }
         public DateTime? FechaFin { get; set; }
@@ -135,8 +137,10 @@ namespace FNT_BusinessEntities.Interface
         public int IdDetalleComprobante { get; set; }
         public int IdComprobante { get; set; }
         public int IdProducto { get; set; }
+        public string DescProducto { get; set; }
         public Nullable<int> Cantidad { get; set; }
         public Nullable<double> SubTotal { get; set; }
+        public Nullable<double> PrecioUnitario { get; set; }
         public Nullable<double> IgvDet { get; set; }
         public Nullable<double> TotalProducto { get; set; }
         public Nullable<double> Descuento { get; set; }
