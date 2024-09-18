@@ -178,7 +178,7 @@ function GrabarVenta() {
             debugger;
 
             var tipo_doc = $("#Seleccionar_ddlTipoComprobante").val();
-            var nro_doc = $("#txtNroComprobante").val();
+            //var nro_doc = $("#txtNroComprobante").val();
             var cliente = $("#Seleccionar_ddlCliente").val();
             var tipo_pago = $("#Seleccionar_ddlTipoPago").val();
             
@@ -188,7 +188,7 @@ function GrabarVenta() {
 
             var oComp = {};
             oComp.idTipoComprobante = tipo_doc;
-            oComp.nroComprobante = nro_doc;
+            //oComp.nroComprobante = nro_doc;
             oComp.IdCliente = cliente;
             oComp.idTipoPago = tipo_pago;
 
