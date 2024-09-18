@@ -1,0 +1,121 @@
+﻿@{
+    //ViewBag.Title = Constantes.Aplicaciones.TipoPago.Titulo;
+    ViewBag.Title = "Reporte de Ventas";
+    //ViewBag.SubTitle = "Proceso de registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="height:15px;"></div>
+<div id="contenedor">
+    <div>
+        <div style="height:15px;"></div>
+        <h3 class="sgothic">@ViewBag.Title</h3>
+        <!-- <h4 id="subtitle" class="sgothic text-primary">@ViewBag.SubTitle</h4> -->
+        <hr />
+    </div>
+
+    
+
+    <div>
+        <div class="row">
+            <div class="col-md-2">Fecha Inicio</div>
+            <div class="col-md-2">
+                <input type="date" id="txtFechaIni">
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">Fecha Fin</div>
+            <div class="col-md-2">
+                <input type="date" id="txtFechaFin">
+            </div>
+
+            <div class="col-md-3">
+                @*<a class="col-md-12 btn btn-primary sgothic" href="@Url.Action("Index", "Cliente")">Buscar</a>*@
+                <button id="btnBuscarVentas" class="col-md-12 btn btn-primary" onclick="BuscarVentas();">
+                    <span style="text-transform: uppercase; font-weight:bold;">Buscar</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="height:20px;"></div>
+    
+    <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+    
+    <div id="Div_Registros">
+
+        <div class="row" style="font-size:11px;">
+            <div class="col-md-12">
+                <table id="TablaVentas" class="table table-striped table-bordered" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>COD VENTA</th>
+                            <th>CLIENTE</th>
+                            <th>FECHA</th>
+                            <th>NRO.COMPROBANTE</th>
+                            <th>TIPO COMPROBANTE</th>
+                            <th>TOTAL</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="Div_Informacion"></div>
+    <div id="Div_Confirmacion"></div>
+    <div id="ModalRespuestaMsg"></div>
+    <hr style="border: 0;opacity: 0.8;height: 2px;background: #007bff;display: block;margin: 1em 0;" />
+    <div id="pie">
+        <div id="zonapie">
+            @*<div id="logo-laureate"><img src="~/Content/themes/base/images/logo-laureate.jpg" alt="Laureate" width="140" height="37" /></div>*@
+            <div id="direcciones">
+                COPYRIGHT Sistema de Ventas @DateTime.Now.Year<br />
+                Todos los derechos reservados.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#TablaVentas').DataTable({
+            "scrollX": true,
+
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando del _START_ al _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando del 0 al 0 de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "order": []
+        });
+        
+        $('#txtFechaIni').val("@DateTime.Now.ToString("yyyy-MM-dd")");
+        $('#txtFechaFin').val("@DateTime.Now.ToString("yyyy-MM-dd")");
+
+    });
+
+</script>

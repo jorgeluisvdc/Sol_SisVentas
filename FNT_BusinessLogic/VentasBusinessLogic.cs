@@ -1,11 +1,16 @@
 ﻿using FNT_BusinessEntities.Interface;
 using FNT_Common.Enum;
 using FNT_DataModel;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Web;
 //using System.Web;
 //using AutoMapper; //************
 //using OfficeOpenXml;
@@ -70,10 +75,11 @@ namespace FNT_BusinessLogic
                               FechaCreacion = v.fecha_creacion,
                               UsuarioModificacion = v.usuario_modificacion,
                               FechaModificacion = v.fecha_modificacion,
-                          }).ToList();
+                          })
                 //.Where(t => t.IdTipoPago == (oConsulta.CodigoConsulta == null ? t.IdTipoPago : oConsulta.CodigoConsulta)).ToList()
                 //.Where(t => t.Descripcion == (string.IsNullOrEmpty(oConsulta.ValorConsulta) ? t.Descripcion : oConsulta.ValorConsulta)).ToList()
-                //.Where(t => t.Estado == (oConsulta.Estado == null ? t.Estado : oConsulta.Estado)).ToList();
+                .Where(t => t.FechaCreacion >= (oConsulta.FechaIni == null ? t.FechaCreacion : oConsulta.FechaIni)).ToList()
+                .Where(t => t.FechaCreacion <= (oConsulta.FechaFin== null ? t.FechaCreacion : oConsulta.FechaFin)).ToList();
 
                 oDTOHeader.CodigoRetorno = HeaderEnum.Correcto.ToString();
                 oDTOHeader.DescRetorno = string.Empty;
@@ -518,5 +524,105 @@ namespace FNT_BusinessLogic
             oDTORespuesta.DTOHeader = oDTOHeader;
             return oDTORespuesta;
         }
+
+        public bool ExportaExcelVentas(List<DTOVenta> lista, HttpResponseBase Response)
+        {
+            try
+            {
+                using (ExcelPackage pck = new ExcelPackage())
+                {
+                    Byte[] bin;
+
+                    var ws = pck.Workbook.Worksheets.Add("Ventas");
+                    string filename = "Reporte_de_ventas"+ DateTime.Now.ToString("ddMMyyyy_Hmmss") + ".xlsx";
+
+                    ws.View.ShowGridLines = false;
+
+                    //CABECERA
+                    ws.Cells[2, 2].Value = "COD_VENTA";
+                    ws.Cells[2, 3].Value = "CLIENTE";
+                    ws.Cells[2, 4].Value = "FECHA";
+                    ws.Cells[2, 5].Value = "NRO.COMPROBANTE";
+                    ws.Cells[2, 6].Value = "TIPO_COMPROBANTE";
+                    ws.Cells[2, 7].Value = "TOTAL";
+
+                    //ANCHO DE COLUMNAS
+                    ws.Column(2).Width = 13;
+                    ws.Column(3).Width = 40;
+                    ws.Column(4).Width = 12;
+                    ws.Column(5).Width = 22;
+                    ws.Column(6).Width = 22;
+                    ws.Column(7).Width = 15;
+
+                    var interno = ws.Cells["B2:G2"];
+                    interno.Style.Font.SetFromFont(new Font("Arial", 10));
+                    interno.Style.Font.Bold = true;
+                    interno.Style.Font.Color.SetColor(Color.White);
+
+                    interno.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    interno.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(48, 84, 150));
+
+                    int i;
+                    for (i = 0; i < lista.Count; i++)
+                    {
+                        if (!(lista[i].IdVenta == 0))
+                        {
+                            ws.Cells[i + 3, 2].Value = lista[i].IdVenta;
+                        }
+                        if (!(lista[i].NombreCliente == null))
+                        {
+                            ws.Cells[i + 3, 3].Value = lista[i].NombreCliente + " " + lista[i].ApePatCliente + " " + lista[i].ApeMatCliente; 
+                        }
+                        if (!(lista[i].FechaCreacion == null))
+                        {
+                            ws.Cells[i + 3, 4].Value = ((DateTime)lista[i].FechaCreacion).ToString("dd/MM/yyyy");
+                        }
+                        if (!(lista[i].NroComprobante == null))
+                        {
+                            ws.Cells[i + 3, 5].Value = lista[i].NroComprobante;
+                        }
+                        if (!(lista[i].DescTipoComprobante == null))
+                        {
+                            ws.Cells[i + 3, 6].Value = lista[i].DescTipoComprobante;
+                        }
+                        if (!(lista[i].TotalComprobante == null))
+                        {
+                            ws.Cells[i + 3, 7].Value = lista[i].TotalComprobante;
+                        }
+                    }
+
+                    interno = ws.Cells["B2:G" + (i + 2).ToString()];
+                    interno.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    interno.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    interno.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    interno.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    bin = pck.GetAsByteArray();
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        Response.Clear();
+                        Response.ClearContent();
+                        Response.ClearHeaders();
+                        Response.Buffer = true;
+                        Response.ContentType = "application/ms-excel";
+                        Response.AddHeader("Content-Disposition", "attachment;filename=" + filename);
+                        Response.BinaryWrite(bin);
+                        Response.Flush();
+                        Response.End();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //DataUtil.EscribirLog("ExportaExcelDetEjecucion --> " + ex.ToString());
+                return false;
+            }
+
+            return true;
+        }
+
+
+
     }
 }

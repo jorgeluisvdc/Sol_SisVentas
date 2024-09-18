@@ -30,6 +30,9 @@ namespace FNT_BusinessEntities.Interface
         public string Vista { get; set; }
         public string Funcion { get; set; }
         public Nullable<int> Estado { get; set; }
+
+        public DateTime? FechaIni { get; set; }
+        public DateTime? FechaFin { get; set; }
     }
 
     public class DTOVenta

@@ -160,10 +160,6 @@ function EliminarProducto(idProducto)
 
 function GrabarVenta() {
     
-    //window.location.href = "/Ventas";
-    //debugger;
-    //return false;
-
     Swal.fire({
         title: '¿Desea registrar el comprobante actual?',
         showLoaderOnConfirm: true,
@@ -238,6 +234,52 @@ function GrabarVenta() {
             return false;
         }
 
+    });
+}
+
+
+function BuscarVentas() {
+    var ParamUrl = $("#Id_HdBuscarVentas").val();
+    debugger;
+
+    var fecha_ini = $("#txtFechaIni").val();
+    var fecha_fin = $("#txtFechaFin").val();
+
+    $("#divLoadingMensaje").show();
+    $("#divLoading").show();
+    //////////ajustarBloqueoDePagina();
+
+    var oBusca = {};
+    oBusca.FechaIni = fecha_ini;
+    oBusca.FechaFin = fecha_fin;
+    
+    $.ajax({
+        url: ParamUrl,
+        data: {
+            oBusca: oBusca
+        },
+        type: "post",
+        cache: false,
+        success: function (data, textStatus, jqXHR) {
+            $("#divLoadingMensaje").hide();
+            $("#divLoading").hide();
+            debugger;
+
+            if (data.indexOf("Modal_Vnt") == -1) {
+                $("#Div_Registros").html(data);
+            }
+            else {
+                if (data.indexOf("Modal_Vnt_OK") == -1) {
+                    $("#ModalRespuestaMsg").html(data);
+                }
+                else {
+                    //$("#Div_Registros").html("");
+                    //$("#Div_Confirmacion").html("");
+                }
+            }
+        },
+        error: function (req, status, error) {
+        }
     });
 
 }

@@ -160,7 +160,7 @@ namespace FNT_VENTAS.Controllers
             return PartialView("VentasNuevo", oView);
         }
 
-        public ActionResult ConsultaVentas()
+        public ActionResult ConsultaVentas(DTOVentasConsulta oBusca)
         {
             MOMensajeConfirmacion oMensaje = new MOMensajeConfirmacion();
             MOMensajeError oVMModal = new MOMensajeError();
@@ -246,7 +246,7 @@ namespace FNT_VENTAS.Controllers
             */
             #endregion
 
-            oDTORespuesta = oIVentasBusinessLogic.ObtenerListaVentas(new DTOVentasConsulta());
+            oDTORespuesta = oIVentasBusinessLogic.ObtenerListaVentas(oBusca);
 
             if (oDTORespuesta.DTOHeader.CodigoRetorno == HeaderEnum.Incorrecto.ToString())
             {
@@ -687,6 +687,121 @@ namespace FNT_VENTAS.Controllers
             }
             return PartialView("../MensajeError/MensajeConfirmacion", oMensaje);
 
+        }
+
+        public ActionResult ExportaExcelVentas()
+        {
+            //Session["LISTA_VENTAS"] = oLista; List<DTOVenta> oLista
+            List<DTOVenta> Lista = new List<DTOVenta>();
+            MOMensajeConfirmacion oMensaje = new MOMensajeConfirmacion();
+            #region Validar Sesiones Principales
+            //if (!VerificarCaducidadSesion())
+            //{
+            //    return RedirectToAction("Index");
+            //}
+            #endregion
+            Lista = (List<DTOVenta>)Session["LISTA_VENTAS"];
+            if (Lista != null)
+            {
+                if (Lista.Count > 0)
+                {
+                    var valida = oIVentasBusinessLogic.ExportaExcelVentas(Lista, Response);
+                }
+            }
+            return new EmptyResult();
+        }
+
+        public ActionResult ReporteVentas()
+        {
+            MOMensajeConfirmacion oMensaje = new MOMensajeConfirmacion();
+            MOMensajeError oVMModal = new MOMensajeError();
+            DTOVentasRespuesta oDTORespuesta = new DTOVentasRespuesta();
+            DTOVentasRespuesta oView = new DTOVentasRespuesta();
+
+            //string UsuarioCod, CodLinNeg;
+            #region Validar Sesiones Principales
+            /*
+            if (!VerificarCaducidadSesion())
+            {
+                oVMModal.BtnSesionExpirada = true;
+                oVMModal.Titulo = Constantes.Titulo.SESION_EXPIRADA;
+                oVMModal.Mensaje = Constantes.Mensajes.SESION_EXPIRADA;
+                oVMModal.RedireccionaAutorizacion = oIParametroConfiguracionBusinessLogic
+                                               .ObtenerParametroConfiguracion(new DTOParametroConfiguracion { COD_PARAMETRO = ParametroConfiguracion.Servidor.LOGIN_ADMIN })
+                                               .DTOParametroConfiguracion.VALOR;
+                if (oVMModal.RedireccionaAutorizacion != null)
+                    return PartialView("../MensajeError/MensajeError_Autorizacion", oVMModal);
+                else
+                    return PartialView("../Shared/ErrorGenerico");
+            }
+            */
+            #endregion
+
+            #region ValidarAutorizacion
+            /*
+            List<DTOMenuBase> _result = Autorizacion();
+            if (_result.Count == 0)
+            {
+                oVMModal.BtnSesionExpirada = true;
+                oVMModal.Titulo = "Mensaje";
+
+                oVMModal.Mensaje = FNT_Common.Constantes.Mensajes.ERR_ACCESO;
+                oVMModal.RedireccionaAutorizacion = oIParametroConfiguracionBusinessLogic
+                                               .ObtenerParametroConfiguracion(new DTOParametroConfiguracion { COD_PARAMETRO = ParametroConfiguracion.Servidor.LOGIN_ADMIN })
+                                               .DTOParametroConfiguracion.VALOR;
+                if (oVMModal.RedireccionaAutorizacion != null)
+                    return PartialView("../MensajeError/MensajeError_Autorizacion", oVMModal);
+                else
+                    return PartialView("../Shared/ErrorGenerico");
+            }
+            else
+            {
+                var _info = _result.Where(p => p.Acceso).FirstOrDefault();
+
+                if (_info == null)
+                {
+                    oVMModal.BtnSesionExpirada = true;
+                    oVMModal.Titulo = "Mensaje";
+
+                    oVMModal.Mensaje = FNT_Common.Constantes.Mensajes.ERR_ACCESO;
+                    oVMModal.RedireccionaAutorizacion = oIParametroConfiguracionBusinessLogic
+                                                   .ObtenerParametroConfiguracion(new DTOParametroConfiguracion { COD_PARAMETRO = ParametroConfiguracion.Servidor.LOGIN_ADMIN })
+                                                   .DTOParametroConfiguracion.VALOR;
+                    if (oVMModal.RedireccionaAutorizacion != null)
+                        return PartialView("../MensajeError/MensajeError_Autorizacion", oVMModal);
+                    else
+                        return PartialView("../Shared/ErrorGenerico");
+                }
+            }
+            */
+            #endregion
+
+            #region Recupera datos de usuario
+            /*
+            UsuarioCod = Session["CUSUARIO"].ToString().ToUpper();
+            CodLinNeg = Session["WCOD_LINEA_NEGOCIO"].ToString().ToUpper();
+            if (!Recupera_Datos_Login())
+            {
+                oVMModal.BtnSesionExpirada = true;
+                oVMModal.Titulo = Constantes.Titulo.SESION_EXPIRADA;
+
+                oVMModal.Mensaje = Constantes.Mensajes.SESION_EXPIRADA;
+                oVMModal.RedireccionaAutorizacion = oIParametroConfiguracionBusinessLogic
+                                               .ObtenerParametroConfiguracion(new DTOParametroConfiguracion { COD_PARAMETRO = ParametroConfiguracion.Servidor.LOGIN_ADMIN })
+                                               .DTOParametroConfiguracion.VALOR;
+                if (oVMModal.RedireccionaAutorizacion != null)
+                    return PartialView("../MensajeError/MensajeError_Autorizacion", oVMModal);
+                else
+                    return PartialView("../Shared/ErrorGenerico");
+            }
+            */
+            #endregion
+
+            //Session["STOCK_PRODUCTOS"] = oView.ListaDTOStock;
+            //List<DTODetalleComprobante> oListaDetComp = new List<DTODetalleComprobante>();
+            //Session["DETALLE_COMPROBANTE"] = oListaDetComp;
+
+            return PartialView("ReporteVentas");
         }
 
     }
