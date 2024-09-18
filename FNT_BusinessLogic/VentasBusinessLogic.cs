@@ -464,7 +464,9 @@ namespace FNT_BusinessLogic
                 if (!string.IsNullOrEmpty(oComprobante.guid_comprobante))
                 {
                     comprobantePago oIns = new comprobantePago();
-                    oIns.nroComprobante = oComprobante.nroComprobante;
+                    var num= db.comprobantePago.Where(c=>c. idTipoComprobante == oComprobante.idTipoComprobante).Max(m =>m. nroComprobante);
+                    var numero= Convert.ToInt32(num) +1;
+                    oIns.nroComprobante = numero.ToString();// oComprobante.nroComprobante;
                     oIns.idTipoComprobante = oComprobante.idTipoComprobante;
                     oIns.fecha = DateTime.Now; //oComprobante.fecha;
                     oIns.igv = oComprobante.igv;
